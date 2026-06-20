@@ -1,0 +1,60 @@
+# Hospital Management System Backend
+
+A backend application developed using Node.js, Express.js, and Mongo - DB to manage hospital operations efficiently.
+
+## Features
+
+* JWT Authentication
+* Role-Based Authorization (Admin & Operator)
+* Patient Registration
+* Payment Management
+* Slip Generation
+* Secure REST APIs
+* Mongo - DB Database Integration
+
+## Technologies Used
+
+* Node.js
+* Express.js
+* Mongo
+* Mongoose
+* JSON Web Token (JWT)
+
+## User Roles
+
+### Admin
+
+* Manage operators
+* Access all records
+* Monitor hospital operations
+
+### Operator
+
+* Register patients
+* Generate slips
+* Record payments
+* Manage daily operations
+
+## Installation
+
+1. Clone the repository
+2. Install dependencies
+
+npm install
+
+3. Configure environment variables
+
+Create a .env file and add:
+
+PORT=5000
+MONG0_URI=your_mongo_connection_string
+JWT_SECRET=your_secret_key
+
+4. Run the application
+
+npm run dev
+
+## Project Purpose
+
+The goal of this project is to digitize hospital management processes, reduce manual work, and provide a secure system for handling patient registrations, payments, and slip generation.
+ 
