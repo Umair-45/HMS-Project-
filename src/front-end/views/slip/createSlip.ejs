@@ -1,0 +1,5174 @@
+<!-- File Path -->
+<!-- src/front-end/views/slip/createSlip.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Create Slip
+    </title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Google Fonts for Urdu Nastaliq -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400..700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+
+            background:
+                linear-gradient(rgba(8, 20, 45, 0.92),
+                    rgba(8, 20, 45, 0.92)),
+
+                url("https://images.unsplash.com/photo-1586773860418-d37222d8fce3?q=80&w=2070&auto=format&fit=crop");
+
+            background-size: cover;
+
+            background-position: center;
+
+            min-height: 100vh;
+
+            font-family: Arial, sans-serif;
+
+            padding: 40px 0;
+
+        }
+
+        .main-card {
+
+            background: rgba(255, 255, 255, 0.08);
+
+            backdrop-filter: blur(14px);
+
+            border-radius: 25px;
+
+            overflow: hidden;
+
+            border: 1px solid rgba(255, 255, 255, 0.08);
+
+            box-shadow:
+                0 15px 40px rgba(0, 0, 0, 0.4);
+
+        }
+
+        .header-box {
+
+            background:
+                rgb(11, 24, 49);
+
+            padding: 35px;
+
+            text-align: center;
+
+            color: white;
+
+        }
+
+        .hospital-logo {
+
+            width: 90px;
+
+            height: 90px;
+
+            border-radius: 50%;
+
+            background: white;
+
+            color: #b10000;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 34px;
+
+            font-weight: bold;
+
+            margin: auto;
+
+            margin-bottom: 18px;
+
+        }
+
+        .hospital-title {
+
+            font-size: 42px;
+
+            font-weight: bold;
+
+        }
+
+        .hospital-subtitle {
+
+            font-size: 18px;
+
+            margin-top: 8px;
+
+        }
+
+        .form-section {
+
+            padding: 35px;
+
+            color: white;
+
+        }
+
+        .form-label {
+
+            font-weight: bold;
+
+            margin-bottom: 10px;
+
+        }
+
+        .form-control,
+        .form-select {
+
+            height: 55px;
+
+            border-radius: 12px;
+
+            border: none;
+
+            background: rgba(255, 255, 255, 0.12);
+
+            color: white;
+
+        }
+
+        .form-control::placeholder {
+
+            color: #ddd;
+
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+
+            background: rgba(255, 255, 255, 0.18);
+
+            color: white;
+
+            box-shadow:
+                0 0 0 4px rgba(255, 255, 255, 0.08);
+
+        }
+
+        option {
+
+            color: black;
+
+        }
+
+        .btn-custom {
+
+            height: 55px;
+
+            border-radius: 12px;
+
+            border: none;
+
+            font-size: 18px;
+
+            font-weight: bold;
+
+        }
+
+        .create-btn {
+
+            background: #15803d;
+
+            color: white;
+
+        }
+
+        .print-btn {
+
+            background: #2563eb;
+
+            color: white;
+
+        }
+
+        .slip-preview {
+
+            width: 210mm;
+
+            height: 297mm;
+
+            background: white;
+
+            margin: 40px auto;
+
+            padding: 12mm;
+
+            color: black;
+
+            display: none;
+
+            overflow: hidden;
+
+            position: relative;
+
+        }
+
+        .slip-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: flex-start;
+
+        }
+
+        .doctor-left {
+
+            width: 30%;
+
+            color: #233d84;
+
+        }
+
+        .doctor-right {
+
+            width: 30%;
+
+            color: #233d84;
+
+            direction: rtl;
+
+            text-align: right;
+
+        }
+
+        .doctor-main {
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            line-height: 1.4;
+
+        }
+
+        .doctor-sub {
+
+            font-size: 15px;
+
+            margin-top: 4px;
+
+            line-height: 1.5;
+
+        }
+
+        .hospital-center {
+
+            width: 35%;
+
+            text-align: center;
+
+        }
+
+        .urdu-title {
+
+            color: #b10000;
+
+            font-size: 42px;
+
+            font-weight: bold;
+
+            margin-bottom: 4px;
+
+        }
+
+        .hospital-small {
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+        }
+
+        .middle-note {
+
+            border: 2px solid #777;
+
+            border-radius: 12px;
+
+            padding: 10px;
+
+            margin-top: 12px;
+
+            font-size: 12px;
+
+            line-height: 1.7;
+
+        }
+
+        .emergency {
+
+            color: #b10000;
+
+            font-size: 24px;
+
+            font-weight: bold;
+
+            margin-top: 10px;
+
+        }
+
+        .slip-type {
+
+            background: #b10000;
+
+            color: white;
+
+            padding: 8px 18px;
+
+            border-radius: 30px;
+
+            display: inline-block;
+
+            margin-top: 10px;
+
+            font-weight: bold;
+
+            font-size: 16px;
+
+        }
+
+        .patient-info {
+
+            margin-top: 16px;
+
+            border-top: 1px solid #555;
+
+            padding-top: 10px;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+        }
+
+        .patient-row {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            margin-bottom: 12px;
+
+            gap: 10px;
+
+        }
+
+        .field {
+
+            border-bottom: 1px dotted #555;
+
+            min-width: 160px;
+
+            display: inline-block;
+
+            padding-left: 8px;
+
+        }
+
+        .rx-area {
+
+            display: flex;
+
+            margin-top: 8px;
+
+            border-top: 1px solid #555;
+
+            height: 880px;
+
+        }
+
+        .rx-left {
+
+            width: 73%;
+
+            padding: 14px;
+
+            position: relative;
+
+        }
+
+        .rx-right {
+
+            width: 27%;
+
+            border-left: 2px solid #666;
+
+            padding: 14px;
+
+            position: relative;
+
+        }
+
+        .rx-symbol {
+
+            font-size: 60px;
+
+            color: #233d84;
+
+            font-family: cursive;
+
+            margin-bottom: 25px;
+
+        }
+
+        .medicine-space {
+
+            height: 760px;
+
+        }
+
+        .clinical-title {
+
+            text-align: center;
+
+            font-size: 22px;
+
+            color: #233d84;
+
+            font-weight: bold;
+
+            margin-bottom: 25px;
+
+        }
+
+        .clinical-item {
+
+            font-size: 22px;
+
+            color: #233d84;
+
+            font-weight: bold;
+
+            margin-bottom: 28px;
+
+        }
+
+        .investigation {
+
+            position: absolute;
+
+            bottom: 35px;
+
+            left: 25px;
+
+            font-size: 18px;
+
+            font-weight: bold;
+
+            color: #233d84;
+
+        }
+
+        @media print {
+
+            html, body {
+                height: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                overflow: hidden !important;
+                page-break-after: avoid !important;
+                page-break-before: avoid !important;
+            }
+
+            @page {
+
+                size: A4;
+
+                margin: 0;
+
+            }
+
+            body {
+
+                background: white;
+
+                margin: 0;
+
+                padding: 0;
+
+            }
+
+            body * {
+
+                visibility: hidden;
+
+            }
+
+            #printSlip,
+            #printSlip * {
+
+                visibility: visible;
+
+            }
+
+            #printSlip {
+
+                position: absolute !important;
+
+                left: 0 !important;
+
+                top: 0 !important;
+
+                width: 210mm !important;
+
+                height: 297mm !important;
+
+                max-height: 297mm !important;
+
+                margin: 0 !important;
+
+                padding: 12mm !important;
+
+                overflow: hidden !important;
+
+                box-sizing: border-box !important;
+
+                page-break-after: avoid !important;
+
+                page-break-before: avoid !important;
+
+                page-break-inside: avoid !important;
+
+                break-inside: avoid !important;
+
+            }
+
+        }
+
+        /* Noto Nastaliq Urdu styling */
+        .urdu-nastaliq {
+            font-family: 'Noto Nastaliq Urdu', serif;
+        }
+
+        /* Evening & Night Premium Header and Footer Styles */
+        .evening-night-header {
+            display: none;
+            width: 100%;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #1c3d5a;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .evening-night-logo-container {
+            width: 100px;
+            height: 100px;
+        }
+
+        .evening-night-title-container {
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        .evening-night-urdu-title {
+            color: #b10000;
+            font-size: 38px;
+            font-weight: bold;
+            line-height: 1.6;
+        }
+
+        .evening-night-urdu-specialties {
+            color: #1c3d5a;
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 5px;
+            direction: rtl;
+        }
+
+        .evening-night-slip-type-container {
+            margin-top: 8px;
+            text-align: center;
+        }
+
+        .evening-night-date-container {
+            width: 150px;
+            text-align: right;
+            font-size: 16px;
+            color: #333;
+            direction: rtl;
+        }
+
+        .evening-night-date-line {
+            border-bottom: 1px solid #333;
+            width: 100px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .evening-night-footer {
+            display: none;
+            position: absolute;
+            bottom: 15mm;
+            left: 12mm;
+            right: 12mm;
+            border-top: 2px solid #1c3d5a;
+            padding-top: 10px;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .evening-night-footer-left {
+            color: #1c3d5a;
+            font-size: 15px;
+            font-weight: bold;
+            font-family: 'Noto Nastaliq Urdu', Arial, sans-serif;
+        }
+
+        .evening-night-footer-right {
+            color: #b10000;
+            font-size: 22px;
+            font-weight: bold;
+            font-family: 'Noto Nastaliq Urdu', serif;
+        }
+
+        /* Toggle between templates based on evening-night-mode class */
+        .slip-preview.evening-night-mode .slip-header {
+            display: none !important;
+        }
+
+        .slip-preview.evening-night-mode .evening-night-header {
+            display: flex !important;
+        }
+
+        .slip-preview.evening-night-mode .evening-night-footer {
+            display: flex !important;
+        }
+
+        /* Adjust Rx area height in evening-night-mode to accommodate footer */
+        .slip-preview.evening-night-mode .rx-area {
+            height: 750px !important;
+        }
+
+        .slip-preview.evening-night-mode .medicine-space {
+            height: 630px !important;
+        }
+
+        /* FBR Section Layout Adjustments */
+        .fbr-section-container {
+            position: absolute;
+            bottom: 10mm;
+            left: 12mm;
+            right: 12mm;
+            height: 90px;
+            background: white;
+            z-index: 100;
+        }
+        
+        /* When FBR is active, reduce Rx area height and shift footers up to avoid overlap */
+        .slip-preview.has-fbr .rx-area {
+            height: 750px !important;
+        }
+        .slip-preview.has-fbr.evening-night-mode .rx-area {
+            height: 640px !important;
+        }
+        .slip-preview.has-fbr .evening-night-footer {
+            bottom: 35mm !important;
+        }
+        .slip-preview.has-fbr .us-footer {
+            bottom: 32mm !important;
+        }
+        .slip-preview.has-fbr .ent-footer {
+            bottom: 32mm !important;
+        }
+        .slip-preview.has-fbr .lab-footer {
+            bottom: 32mm !important;
+        }
+        .slip-preview.has-fbr .hij-footer-green {
+            bottom: 32mm !important;
+        }
+
+        /* Ultrasound Mode Styles */
+        .ultrasound-header {
+            display: none;
+            width: 100%;
+            text-align: center;
+            border-bottom: 2px solid #b10000;
+            padding-bottom: 12px;
+            margin-bottom: 15px;
+        }
+
+        .ultrasound-logo-title {
+            width: 100%;
+            margin-bottom: 2px;
+        }
+
+        .ultrasound-header-subtitle {
+            color: #1c3d5a;
+            font-size: 15px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .ultrasound-header-phone {
+            color: #1c3d5a;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .ultrasound-slip-type-container {
+            margin-top: 8px;
+            text-align: center;
+        }
+
+        .ultrasound-body {
+            display: none;
+            /* hidden by default */
+            margin-top: 15px;
+            border-top: 2px solid #555;
+            padding-top: 15px;
+        }
+
+        .us-section-title {
+            color: #b10000;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: underline;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .us-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .us-col {
+            width: 48%;
+        }
+
+        .us-field-row {
+            display: flex;
+            align-items: flex-end;
+            margin-bottom: 10px;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .us-label {
+            white-space: nowrap;
+            margin-right: 8px;
+            color: #333;
+        }
+
+        .us-dotted-line {
+            flex-grow: 1;
+            border-bottom: 1px dotted #444;
+            height: 1px;
+            margin-bottom: 3px;
+        }
+
+        .us-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: 25px;
+            padding-top: 10px;
+        }
+
+        .us-footer-left {
+            color: #b10000;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .us-footer-right {
+            color: #b10000;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            border-top: 1px solid #b10000;
+            width: 150px;
+            padding-top: 5px;
+            margin-top: 25px;
+        }
+
+        /* Toggle between templates based on ultrasound-mode class */
+        .slip-preview.ultrasound-mode .slip-header,
+        .slip-preview.ultrasound-mode .evening-night-header,
+        .slip-preview.ultrasound-mode .evening-night-footer,
+        .slip-preview.ultrasound-mode .rx-area {
+            display: none !important;
+        }
+
+        .slip-preview.ultrasound-mode .ultrasound-header {
+            display: block !important;
+        }
+
+        .slip-preview.ultrasound-mode .ultrasound-body {
+            display: block !important;
+        }
+
+        /* ENT Mode Styles */
+        .ent-header {
+            display: none;
+            width: 100%;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 2px solid #b10000;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .ent-header-left {
+            width: 35%;
+            color: #233d84;
+            font-family: Arial, sans-serif;
+        }
+
+        .ent-doc-name-eng {
+            font-size: 20px;
+            font-weight: bold;
+            color: #b10000;
+            margin-bottom: 8px;
+        }
+
+        .ent-doc-sub-eng {
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            line-height: 1.4;
+        }
+
+        .ent-doc-spec-eng {
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            line-height: 1.4;
+        }
+
+        .ent-doc-addr-eng {
+            font-size: 12px;
+            margin-top: 8px;
+            font-weight: bold;
+        }
+
+        .ent-header-center {
+            width: 30%;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .ent-slip-type-container {
+            margin-top: 8px;
+        }
+
+        .ent-header-right {
+            width: 35%;
+            color: #233d84;
+            text-align: right;
+            direction: rtl;
+        }
+
+        .ent-doc-name-urdu {
+            font-size: 23px;
+            font-weight: bold;
+            color: #b10000;
+            margin-bottom: 12px;
+        }
+
+        .ent-doc-sub-urdu {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            line-height: 2.2 !important;
+        }
+
+        .ent-doc-spec-urdu {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            line-height: 2.2 !important;
+        }
+
+        .ent-doc-addr-urdu {
+            font-size: 13px;
+            margin-top: 8px;
+            line-height: 2.2 !important;
+        }
+
+        .ent-footer {
+            display: none;
+            position: absolute;
+            bottom: 12mm;
+            left: 12mm;
+            right: 12mm;
+            border-top: 1px solid #777;
+            padding-top: 10px;
+            text-align: center;
+            font-size: 13px;
+            line-height: 1.8;
+            color: #333;
+            font-weight: bold;
+        }
+
+        /* Toggle between templates based on ent-mode class */
+        .slip-preview.ent-mode .slip-header,
+        .slip-preview.ent-mode .evening-night-header,
+        .slip-preview.ent-mode .evening-night-footer,
+        .slip-preview.ent-mode .ultrasound-header,
+        .slip-preview.ent-mode .ultrasound-body {
+            display: none !important;
+        }
+
+        .slip-preview.ent-mode .ent-header {
+            display: flex !important;
+        }
+
+        .slip-preview.ent-mode .ent-footer {
+            display: block !important;
+        }
+
+        .slip-preview.ent-mode .patient-info {
+            border-top: none !important;
+        }
+
+        .slip-preview.ent-mode .rx-area {
+            border-top: none !important;
+            height: 780px !important;
+        }
+
+        .slip-preview.ent-mode .rx-left {
+            width: 100% !important;
+            border-right: none !important;
+        }
+
+        .slip-preview.ent-mode .rx-right {
+            display: none !important;
+        }
+
+        .ent-hospital-title {
+            color: #b10000;
+            font-size: 26px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            font-family: Arial, sans-serif;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .slip-preview.ent-mode .rx-symbol {
+            display: none !important;
+        }
+
+        /* ==========================================================================
+           ENT Operation Consent Slip Mode Styles
+           ========================================================================== */
+        .ent-operation-body {
+            display: none;
+            width: 100%;
+            direction: rtl;
+            text-align: right;
+            font-family: 'Noto Nastaliq Urdu', Arial, sans-serif;
+            font-size: 11px;
+            line-height: 1.6;
+            color: #000;
+        }
+
+        .slip-preview.ent-operation-mode {
+            padding: 8mm 10mm !important;
+        }
+
+        .slip-preview.ent-operation-mode .slip-header,
+        .slip-preview.ent-operation-mode .evening-night-header,
+        .slip-preview.ent-operation-mode .evening-night-footer,
+        .slip-preview.ent-operation-mode .ultrasound-header,
+        .slip-preview.ent-operation-mode .ultrasound-body,
+        .slip-preview.ent-operation-mode .ent-header,
+        .slip-preview.ent-operation-mode .ent-footer,
+        .slip-preview.ent-operation-mode .rx-area,
+        .slip-preview.ent-operation-mode .patient-info,
+        .slip-preview.ent-operation-mode .lab-header,
+        .slip-preview.ent-operation-mode .lab-patient-info,
+        .slip-preview.ent-operation-mode .lab-body,
+        .slip-preview.ent-operation-mode .lab-footer {
+            display: none !important;
+        }
+
+        .slip-preview.ent-operation-mode .ent-operation-body {
+            display: block !important;
+        }
+
+        .ent-op-banner {
+            background-color: #000;
+            color: #fff;
+            padding: 12px 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+
+        .ent-op-banner h1 {
+            font-size: 22px;
+            font-weight: bold;
+            margin: 0;
+            color: #fff;
+            font-family: 'Noto Nastaliq Urdu', serif;
+        }
+
+        .ent-op-banner span {
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .ent-op-sub-header {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .ent-op-sub-header .location {
+            font-size: 13px;
+            font-weight: bold;
+            color: #222;
+        }
+
+        .ent-op-sub-header .title-ijazat {
+            font-size: 18px;
+            font-weight: bold;
+            color: #b10000;
+            margin: 4px 0;
+            display: inline-block;
+            border: 2px solid #b10000;
+            padding: 6px 20px;
+            border-radius: 10px;
+        }
+
+        .ent-op-sub-header .subtitle {
+            font-size: 13px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .ent-op-info-intro {
+            font-size: 11.5px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            border-bottom: 2px solid #777;
+            padding-bottom: 18px;
+        }
+
+        .ent-op-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .ent-op-table td {
+            vertical-align: top;
+            padding: 6px 8px;
+            border-bottom: 4px solid #ddd;
+        }
+
+        .ent-op-table td.heading-col {
+            font-weight: bold;
+            font-size: 12px;
+            color: #b10000;
+            width: 18%;
+            border-left: 1px solid #ddd;
+            text-align: right;
+            padding-right: 0;
+        }
+
+        .ent-op-table td.text-col {
+            width: 82%;
+            text-align: right;
+            padding-left: 0;
+        }
+
+        .ent-op-table td.text-col div {
+            margin-bottom: 4px;
+        }
+
+        .ent-op-table td.text-col div:last-child {
+            margin-bottom: 0;
+        }
+
+        .ent-op-fields {
+            margin-top: 40px;
+            margin-bottom: 10px;
+        }
+
+        .ent-op-fields-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            gap: 15px;
+        }
+
+        .ent-op-field {
+            display: flex;
+            align-items: flex-end;
+            font-size: 11.5px;
+            font-weight: bold;
+            width: 48%;
+        }
+
+        .ent-op-field-label {
+            white-space: nowrap;
+            margin-left: 8px;
+            color: #333;
+        }
+
+        .ent-op-field-value {
+            border-bottom: 1px dotted #0a0a0b;
+            flex-grow: 1;
+            padding-right: 8px;
+            color: #000;
+            min-height: 18px;
+        }
+
+        .ent-op-declaration {
+            border: 1px solid #777;
+            padding: 6px 10px;
+            font-size: 10.5px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            text-align: justify;
+            border-radius: 4px;
+        }
+
+        .ent-op-note-center {
+            text-align: center;
+            font-weight: bold;
+            font-size: 12px;
+            margin-bottom: 20px;
+            color: #e70808;
+        }
+
+        .ent-op-sigs {
+            margin-top: 40px;
+            margin-bottom: 5px;
+        }
+
+        .ent-op-sig-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 8px;
+            gap: 15px;
+        }
+
+        .ent-op-sig-col {
+            display: flex;
+            align-items: flex-end;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .ent-op-sig-col.w-35 {
+            width: 35%;
+        }
+
+        .ent-op-sig-col.w-30 {
+            width: 30%;
+        }
+
+        .ent-op-sig-label {
+            white-space: nowrap;
+            margin-left: 5px;
+        }
+
+        .ent-op-sig-line {
+            border-bottom: 1px dotted #333;
+            flex-grow: 1;
+            padding-right: 5px;
+            color: #000;
+            min-height: 16px;
+        }
+
+        /* ==========================================================================
+           C-Section Consent Slip Mode Styles
+           ========================================================================== */
+        .c-section-body {
+            display: none;
+            width: 100%;
+            direction: rtl;
+            text-align: right;
+            font-family: 'Noto Nastaliq Urdu', Arial, sans-serif;
+            font-size: 12px;
+            line-height: 2;
+            color: #000;
+        }
+
+        .slip-preview.c-section-mode {
+            padding: 6mm 10mm !important;
+        }
+
+        .slip-preview.c-section-mode .slip-header,
+        .slip-preview.c-section-mode .evening-night-header,
+        .slip-preview.c-section-mode .evening-night-footer,
+        .slip-preview.c-section-mode .ultrasound-header,
+        .slip-preview.c-section-mode .ultrasound-body,
+        .slip-preview.c-section-mode .ent-header,
+        .slip-preview.c-section-mode .ent-footer,
+        .slip-preview.c-section-mode .ent-operation-body,
+        .slip-preview.c-section-mode .rx-area,
+        .slip-preview.c-section-mode .patient-info,
+        .slip-preview.c-section-mode .lab-header,
+        .slip-preview.c-section-mode .lab-patient-info,
+        .slip-preview.c-section-mode .lab-body,
+        .slip-preview.c-section-mode .lab-footer {
+            display: none !important;
+        }
+
+        .slip-preview.c-section-mode .c-section-body {
+            display: block !important;
+        }
+
+        .csec-banner {
+            background-color: #000;
+            color: #fff;
+            padding: 9px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+
+        .csec-banner h1 {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 0;
+            color: #fff;
+            font-family: 'Noto Nastaliq Urdu', serif;
+        }
+
+        .csec-banner span {
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .csec-sub-header {
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .csec-sub-header .location {
+            font-size: 12px;
+            font-weight: bold;
+            color: #222;
+        }
+
+        .csec-sub-header .title-ijazat {
+            font-size: 18px;
+            font-weight: bold;
+            color: #b10000;
+            margin: 3px 0;
+            display: inline-block;
+            border: 2px solid #b10000;
+            padding: 5px 22px;
+            border-radius: 10px;
+        }
+
+        .csec-sub-header .subtitle {
+            font-size: 12px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .csec-info-intro {
+            font-size: 11px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #b60b0b;
+            padding-bottom: 4px;
+        }
+
+        .csec-list-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 40px;
+        }
+
+        .csec-list-item {
+            width: 49%;
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 3px;
+            line-height: 1.4;
+        }
+
+        .csec-list-item span.star-icon {
+            color: #b10000;
+            font-weight: bold;
+            margin-left: 2px;
+            font-size: 11px;
+            display: inline-block;
+        }
+
+        .csec-list-item span.text-content {
+            font-size: 12px;
+        }
+
+        .csec-two-cols {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+            margin-bottom: 8px;
+            border-top: 1px solid #ccc;
+            padding-top: 6px;
+            gap: 20px;
+        }
+
+        .csec-col-lists {
+            width: 55%;
+        }
+
+        .csec-col-fields {
+            width: 42%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .csec-section-title {
+            font-weight: bold;
+            font-size: 22px;
+            color: #222;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #030303;
+            padding-bottom: 20px;
+
+        }
+
+        .csec-sub-section-title {
+            font-weight: bold;
+            font-size: 15px;
+            color: #b10000;
+            margin-top: 3px;
+            margin-bottom: 3px;
+        }
+
+        .csec-issue-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 10px;
+            font-size: 12px;
+            padding-right: 10px;
+        }
+
+        .csec-issue-item span.star-icon {
+            color: #b10000;
+            margin-left: 5px;
+            font-size: 10px;
+        }
+
+        .csec-field {
+            display: flex;
+            align-items: flex-end;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        .csec-field-label {
+            white-space: nowrap;
+            margin-left: 6px;
+            color: #333;
+        }
+
+        .csec-field-value {
+            border-bottom: 1px dotted #333;
+            flex-grow: 1;
+            padding-right: 5px;
+            color: #000;
+            min-height: 18px;
+            margin-top: 20px;
+        }
+
+        .csec-declaration {
+            border: 1px solid #777;
+            padding: 5px 8px;
+            font-size: 10px;
+            line-height: 1.5;
+            margin-bottom: 30px;
+            text-align: justify;
+            border-radius: 4px;
+        }
+
+        .csec-note-center {
+            text-align: center;
+            font-weight: bold;
+            font-size: 10.5px;
+            margin-bottom: 30px;
+            color: #b10000;
+        }
+
+        .csec-patient-details-block {
+            margin-top: 4px;
+            margin-bottom: 4px;
+            border-top: 1px solid #eee;
+            padding-top: 4px;
+        }
+
+        .csec-patient-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+            gap: 15px;
+        }
+
+        .csec-patient-field {
+            display: flex;
+            align-items: flex-end;
+            font-size: 10.5px;
+            font-weight: bold;
+        }
+
+        .csec-patient-field.w-100 {
+            width: 100%;
+        }
+
+        .csec-patient-field.w-50 {
+            width: 48%;
+        }
+
+        .csec-patient-label {
+            white-space: nowrap;
+            margin-left: 6px;
+            color: #333;
+        }
+
+        .csec-patient-value {
+            border-bottom: 1px dotted #333;
+            flex-grow: 1;
+            padding-right: 5px;
+            color: #000;
+            min-height: 16px;
+        }
+
+        .csec-sigs {
+            margin-top: 4px;
+            margin-bottom: 2px;
+        }
+
+        .csec-sig-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 4px;
+            gap: 10px;
+        }
+
+        .csec-sig-col {
+            display: flex;
+            align-items: flex-end;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .csec-sig-col.w-35 {
+            width: 35%;
+        }
+
+        .csec-sig-col.w-30 {
+            width: 30%;
+        }
+
+        .csec-sig-label {
+            white-space: nowrap;
+            margin-left: 4px;
+        }
+
+        .csec-sig-line {
+            border-bottom: 1px dotted #333;
+            flex-grow: 1;
+            padding-right: 4px;
+            color: #000;
+            min-height: 14px;
+        }
+
+        /* Normal Delivery Consent Slip Mode Styles */
+        .normal-delivery-body {
+            display: none;
+            width: 100%;
+            direction: rtl;
+            text-align: right;
+            font-family: 'Noto Nastaliq Urdu', Arial, sans-serif;
+            font-size: 11px;
+            line-height: 1.6;
+            color: #000;
+        }
+
+        .slip-preview.normal-delivery-mode {
+            padding: 6mm 10mm !important;
+        }
+
+        .slip-preview.normal-delivery-mode .slip-header,
+        .slip-preview.normal-delivery-mode .evening-night-header,
+        .slip-preview.normal-delivery-mode .evening-night-footer,
+        .slip-preview.normal-delivery-mode .ultrasound-header,
+        .slip-preview.normal-delivery-mode .ultrasound-body,
+        .slip-preview.normal-delivery-mode .ent-header,
+        .slip-preview.normal-delivery-mode .ent-footer,
+        .slip-preview.normal-delivery-mode .ent-operation-body,
+        .slip-preview.normal-delivery-mode .c-section-body,
+        .slip-preview.normal-delivery-mode .rx-area,
+        .slip-preview.normal-delivery-mode .patient-info,
+        .slip-preview.normal-delivery-mode .lab-header,
+        .slip-preview.normal-delivery-mode .lab-patient-info,
+        .slip-preview.normal-delivery-mode .lab-body,
+        .slip-preview.normal-delivery-mode .lab-footer {
+            display: none !important;
+        }
+
+        .slip-preview.normal-delivery-mode .normal-delivery-body {
+            display: block !important;
+        }
+
+        .norm-title-container {
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .norm-title-container .title-ijazat {
+            font-size: 30px;
+            font-weight: bold;
+            color: #000;
+            margin: 4px 0;
+            display: inline-block;
+            border-bottom: 2px solid #000;
+            padding-bottom: 2px;
+        }
+
+        .norm-consent-opening {
+            font-size: 15px;
+            line-height: 1.8;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .norm-opening-line {
+            border-bottom: 1px dotted #333;
+            display: inline-block;
+            min-width: 150px;
+            text-align: center;
+            padding: 0 5px;
+            color: #b10000;
+            font-size: 24px;
+        }
+
+        .norm-paragraphs {
+            margin-bottom: 52px;
+        }
+
+        .norm-paragraph {
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            text-align: justify;
+        }
+
+        .norm-fields-grid {
+            margin-top: 15px;
+            margin-bottom: 5px;
+            border-top: 1px solid #d08181;
+            padding-top: 40px;
+        }
+
+        .norm-fields-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 18px;
+            gap: 15px;
+        }
+
+        .norm-field {
+            display: flex;
+            align-items: flex-end;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .norm-field.w-100 {
+            width: 100%;
+        }
+
+        .norm-field.w-50 {
+            width: 48%;
+        }
+
+        .norm-field-label {
+            white-space: nowrap;
+            margin-left: 8px;
+            color: #333;
+        }
+
+        .norm-field-value {
+            border-bottom: 1px dotted #333;
+            flex-grow: 1;
+            padding-right: 5px;
+            color: #000;
+            min-height: 18px;
+        }
+
+        /* ==========================================================================
+           DNC Consent Slip Mode Styles
+           ========================================================================== */
+        .dnc-body {
+            display: none;
+            width: 100%;
+            color: #000;
+            font-family: Arial, sans-serif;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .slip-preview.dnc-mode {
+            padding: 8mm 12mm !important;
+        }
+
+        .slip-preview.dnc-mode .slip-header,
+        .slip-preview.dnc-mode .evening-night-header,
+        .slip-preview.dnc-mode .evening-night-footer,
+        .slip-preview.dnc-mode .ultrasound-header,
+        .slip-preview.dnc-mode .ultrasound-body,
+        .slip-preview.dnc-mode .ent-header,
+        .slip-preview.dnc-mode .ent-footer,
+        .slip-preview.dnc-mode .ent-operation-body,
+        .slip-preview.dnc-mode .c-section-body,
+        .slip-preview.dnc-mode .normal-delivery-body,
+        .slip-preview.dnc-mode .rx-area,
+        .slip-preview.dnc-mode .patient-info,
+        .slip-preview.dnc-mode .lab-header,
+        .slip-preview.dnc-mode .lab-patient-info,
+        .slip-preview.dnc-mode .lab-body,
+        .slip-preview.dnc-mode .lab-footer {
+            display: none !important;
+        }
+
+        .slip-preview.dnc-mode .dnc-body {
+            display: block !important;
+        }
+
+        .dnc-header-container {
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .dnc-hospital-title {
+            font-size: 28px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            margin-bottom: 2px;
+            color: #000;
+        }
+
+        .dnc-hospital-subtitle {
+            font-size: 13px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .dnc-date-row {
+            text-align: right;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .dnc-date-underline {
+            border-bottom: 1px solid #000;
+            display: inline-block;
+            min-width: 150px;
+            text-align: center;
+            padding: 0 5px;
+        }
+
+        .dnc-consent-title-box {
+            text-align: center;
+            margin: 15px auto 25px auto;
+        }
+
+        .dnc-consent-title {
+            border: 2px solid #000;
+            padding: 4px 20px;
+            font-weight: 900;
+            font-size: 18px;
+            display: inline-block;
+            letter-spacing: 1px;
+        }
+
+        .dnc-text-line {
+            font-size: 14px;
+            line-height: 2.2;
+            margin-bottom: 25px;
+            text-align: justify;
+        }
+
+        .dnc-underline-field {
+            border-bottom: 1px solid #000;
+            display: inline-block;
+            padding: 0 8px;
+            text-align: center;
+            font-weight: bold;
+            min-width: 180px;
+        }
+
+        .dnc-sig-block {
+            margin-top: 30px;
+            margin-bottom: 35px;
+        }
+
+        .dnc-sig-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .dnc-sig-col {
+            width: 48%;
+        }
+
+        .dnc-sig-line {
+            border-bottom: 1px solid #000;
+            display: inline-block;
+            width: 60%;
+            vertical-align: bottom;
+            font-weight: bold;
+            padding-left: 10px;
+        }
+
+        .dnc-urdu-section {
+            direction: rtl;
+            text-align: right;
+            font-family: 'Noto Nastaliq Urdu', Arial, sans-serif;
+            margin-top: 40px;
+            border-top: 2px dashed #000;
+            padding-top: 30px;
+        }
+
+        .dnc-urdu-title {
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            color: #000;
+        }
+
+        .dnc-urdu-paragraph {
+            font-size: 14px;
+            line-height: 2.4;
+            margin-bottom: 35px;
+            text-align: justify;
+        }
+
+        .dnc-urdu-underline {
+            border-bottom: 1px dotted #000;
+            display: inline-block;
+            padding: 0 8px;
+            text-align: center;
+            font-weight: bold;
+            min-width: 200px;
+            color: #b10000;
+        }
+
+        .dnc-urdu-sigs {
+            margin-top: 20px;
+        }
+
+        .dnc-urdu-sig-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .dnc-urdu-sig-col {
+            display: flex;
+            align-items: flex-end;
+            width: 100%;
+        }
+
+        .dnc-urdu-sig-label {
+            white-space: nowrap;
+            margin-left: 8px;
+        }
+
+        .dnc-urdu-sig-line {
+            border-bottom: 1px dotted #000;
+            flex-grow: 1;
+            padding-right: 10px;
+            min-height: 22px;
+            color: #000;
+        }
+
+        /* ==========================================================================
+           Hijama Patient Card Styles
+           ========================================================================== */
+        .hijama-body {
+            display: none;
+            width: 100%;
+            color: #000;
+            font-family: 'Noto Nastaliq Urdu', Arial, sans-serif;
+            font-size: 12px;
+            direction: rtl;
+            text-align: right;
+        }
+
+        .slip-preview.hijama-mode {
+            padding: 6mm 10mm !important;
+        }
+
+        .slip-preview.hijama-mode .slip-header,
+        .slip-preview.hijama-mode .evening-night-header,
+        .slip-preview.hijama-mode .evening-night-footer,
+        .slip-preview.hijama-mode .ultrasound-header,
+        .slip-preview.hijama-mode .ultrasound-body,
+        .slip-preview.hijama-mode .ent-header,
+        .slip-preview.hijama-mode .ent-footer,
+        .slip-preview.hijama-mode .ent-operation-body,
+        .slip-preview.hijama-mode .c-section-body,
+        .slip-preview.hijama-mode .normal-delivery-body,
+        .slip-preview.hijama-mode .dnc-body,
+        .slip-preview.hijama-mode .rx-area,
+        .slip-preview.hijama-mode .patient-info,
+        .slip-preview.hijama-mode .lab-header,
+        .slip-preview.hijama-mode .lab-patient-info,
+        .slip-preview.hijama-mode .lab-body,
+        .slip-preview.hijama-mode .lab-footer {
+            display: none !important;
+        }
+
+        .slip-preview.hijama-mode .hijama-body {
+            display: block !important;
+        }
+
+        .hij-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 10px;
+        }
+
+        .hij-logo-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 150px;
+        }
+
+        .hij-logo-text {
+            font-size: 11px;
+            font-weight: bold;
+            color: #b10000;
+            margin-top: 3px;
+            text-align: center;
+        }
+
+        .hij-title-red {
+            color: #e53e3e;
+            font-size: 32px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            font-family: 'Noto Nastaliq Urdu', serif;
+        }
+
+        .hij-info-grid {
+            margin-bottom: 20px;
+        }
+
+        .hij-info-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 12px;
+        }
+
+        .hij-field {
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .hij-field-label {
+            margin-left: 10px;
+            white-space: nowrap;
+            color: #000;
+        }
+
+        .hij-field-box {
+            border: 1px solid #777;
+            height: 28px;
+            flex-grow: 1;
+            padding: 2px 10px;
+            display: flex;
+            align-items: center;
+            background: #e1d5d5;
+            color: #000;
+            font-weight: bold;
+        }
+
+        .hij-cols-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            margin-bottom: 25px;
+        }
+
+        .hij-col {
+            width: 48%;
+        }
+
+        .hij-item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .hij-item-label {
+            font-size: 12px;
+            font-weight: bold;
+            white-space: nowrap;
+            width: 40%;
+            text-align: right;
+        }
+
+        .hij-item-box {
+            border: 1px solid #777;
+            height: 28px;
+            width: 58%;
+            background: #dad6d6;
+            padding: 2px 10px;
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        .hij-bottom-boxes {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 60px;
+            margin-top: 95px;
+        }
+
+        .hij-sunnah-box {
+            border: 1px solid #000;
+            width: 130px;
+            text-align: center;
+            padding: 8px;
+            background: #fff;
+        }
+
+        .hij-sunnah-header {
+            font-weight: bold;
+            font-size: 18px;
+            border-bottom: 1px solid #000;
+            margin-bottom: 5px;
+            color: #b10000;
+        }
+
+        .hij-sunnah-item {
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        .hij-footer-green {
+            background-color: #276749;
+            color: #fff;
+            padding: 6px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            font-weight: bold;
+            border-radius: 4px;
+            margin-top: 260px;
+        }
+
+        /* ==========================================================================
+           LAB Slip Mode Styles
+           ========================================================================== */
+
+        .lab-header {
+            display: none;
+            width: 100%;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #e0533c;
+            padding-bottom: 8px;
+            margin-bottom: 8px;
+        }
+
+        .lab-logo-container {
+            width: 80px;
+            height: 80px;
+        }
+
+        .lab-title-container {
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        .lab-hospital-title {
+            color: #b10000;
+            font-size: 32px;
+            font-weight: 800;
+            margin: 0;
+            line-height: 1.1;
+            letter-spacing: 0.5px;
+        }
+
+        .lab-affiliation {
+            color: #1c3d5a;
+            font-size: 13px;
+            font-weight: bold;
+            margin: 4px 0 2px 0;
+            letter-spacing: 0.5px;
+        }
+
+        .lab-contact {
+            color: #333;
+            font-size: 13px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .lab-crescent-container {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        /* .lab-report-bar {
+            background-color: #b10000;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            padding: 4px 0;
+            font-size: 15px;
+            letter-spacing: 2px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        } */
+
+        /* Patient Info for Lab Mode */
+        .lab-patient-info {
+            display: none;
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 8px 12px;
+            margin-bottom: 10px;
+            background-color: #fafafa;
+        }
+
+        .lab-patient-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+            gap: 15px;
+        }
+
+        .lab-patient-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .lab-patient-field {
+            font-size: 12px;
+            font-weight: bold;
+            color: #333;
+            flex: 1;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .lab-patient-label {
+            color: #666;
+            margin-right: 6px;
+            white-space: nowrap;
+        }
+
+        .lab-patient-value {
+            border-bottom: 1px dotted #666;
+            flex-grow: 1;
+            padding-left: 4px;
+            color: #111;
+            min-height: 16px;
+        }
+
+        /* Lab Body Grid Layout */
+        .lab-body {
+            display: none;
+            width: 100%;
+        }
+
+        .lab-cols {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 8px;
+        }
+
+        .lab-col-left {
+            width: 50%;
+        }
+
+        .lab-col-right {
+            width: 50%;
+        }
+
+        /* Section Banners */
+        .lab-section {
+            margin-bottom: 10px;
+        }
+
+        .lab-section-header {
+            background-color: #f3705a;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            text-align: center;
+            padding: 3px 12px;
+            border-radius: 15px;
+            margin-bottom: 6px;
+            display: inline-block;
+            min-width: 140px;
+            text-transform: uppercase;
+        }
+
+        /* Test Lines styling */
+        .lab-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 3px;
+            font-size: 11px;
+            line-height: 1.2;
+        }
+
+        .lab-item-name {
+            font-weight: bold;
+            color: #222;
+            white-space: nowrap;
+        }
+
+        .lab-item-dots {
+            flex-grow: 1;
+            border-bottom: 1px dotted #aaa;
+            margin-bottom: 2px;
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+
+        .lab-item-val-unit {
+            display: flex;
+            justify-content: space-between;
+            width: 130px;
+            /* standard width for value space + unit/range */
+            font-size: 10px;
+            font-weight: normal;
+        }
+
+        .lab-item-val {
+            color: #666;
+        }
+
+        .lab-item-range {
+            text-align: right;
+            color: #444;
+            font-weight: bold;
+            white-space: pre-wrap;
+            /* allow newline for range if needed */
+        }
+
+        /* Sub items (indented) */
+        .lab-sub-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 2px;
+            margin-left: 15px;
+            font-size: 10.5px;
+            line-height: 1.2;
+        }
+
+        .lab-sub-item-name {
+            color: #444;
+            white-space: nowrap;
+        }
+
+        .lab-sub-item-dots {
+            flex-grow: 1;
+            border-bottom: 1px dotted #bbb;
+            margin-bottom: 2px;
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+
+        .lab-sub-item-val-unit {
+            display: flex;
+            justify-content: space-between;
+            width: 130px;
+            font-size: 10px;
+        }
+
+        /* ICT TB Specific */
+        .lab-ict-title {
+            font-weight: bold;
+            font-size: 12px;
+            color: #b10000;
+            margin-top: 6px;
+            margin-bottom: 4px;
+            text-decoration: underline;
+        }
+
+        /* Urine Analysis Section Grid */
+        .lab-urine-section {
+            border-top: 1px solid #ccc;
+            padding-top: 8px;
+            margin-top: 8px;
+        }
+
+        .lab-urine-header-container {
+            text-align: center;
+            margin-bottom: 6px;
+        }
+
+        .lab-urine-header {
+            background-color: #f3705a;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 3px 20px;
+            border-radius: 15px;
+            display: inline-block;
+            text-transform: uppercase;
+        }
+
+        .lab-urine-cols {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .lab-urine-col {
+            width: 32%;
+        }
+
+        .lab-urine-sub-header {
+            font-weight: bold;
+            font-size: 11px;
+            text-decoration: underline;
+            color: #222;
+            margin-bottom: 4px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .lab-urine-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 3px;
+            font-size: 10px;
+        }
+
+        .lab-urine-item-name {
+            font-weight: bold;
+            color: #333;
+            white-space: nowrap;
+        }
+
+        .lab-urine-item-dots {
+            flex-grow: 1;
+            border-bottom: 1px dotted #ccc;
+            margin-bottom: 2px;
+            margin-left: 4px;
+            margin-right: 4px;
+        }
+
+        .lab-urine-item-val {
+            color: #555;
+            min-width: 35px;
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .lab-pregnancy-test {
+            font-size: 11px;
+            font-weight: bold;
+            margin-top: 6px;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        /* Footer styling */
+        .lab-footer {
+            display: none;
+            width: 100%;
+            position: absolute;
+            bottom: 12mm;
+            left: 12mm;
+            right: 12mm;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-top: 1px solid #ccc;
+            padding-top: 6px;
+        }
+
+        .lab-footer-left {
+            font-size: 11px;
+            font-weight: bold;
+            color: #666;
+            line-height: 1.3;
+        }
+
+        .lab-footer-right {
+            font-size: 6px;
+            font-weight: bold;
+            color: #333;
+            border-top: 1px solid #333;
+            width: 180px;
+            text-align: center;
+            padding-top: 4px;
+        }
+
+        /* Toggle Classes */
+        .slip-preview.lab-mode .slip-header,
+        .slip-preview.lab-mode .evening-night-header,
+        .slip-preview.lab-mode .evening-night-footer,
+        .slip-preview.lab-mode .ultrasound-header,
+        .slip-preview.lab-mode .ultrasound-body,
+        .slip-preview.lab-mode .ent-header,
+        .slip-preview.lab-mode .ent-footer,
+        .slip-preview.lab-mode .rx-area,
+        .slip-preview.lab-mode .patient-info {
+            display: none !important;
+        }
+
+        .slip-preview.lab-mode .lab-header {
+            display: flex !important;
+        }
+
+        .slip-preview.lab-mode .lab-patient-info {
+            display: block !important;
+        }
+
+        .slip-preview.lab-mode .lab-body {
+            display: block !important;
+        }
+
+        .slip-preview.lab-mode .lab-footer {
+            display: flex !important;
+        }
+
+        /* FBR Status Widget Styles */
+        .fbr-status-widget {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .fbr-status-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .fbr-status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #f59e0b;
+            box-shadow: 0 0 8px #f59e0b;
+            transition: all 0.3s ease;
+        }
+
+        .fbr-status-dot.online {
+            background-color: #10b981;
+            box-shadow: 0 0 10px #10b981;
+            animation: pulse-green 2s infinite;
+        }
+
+        .fbr-status-dot.offline {
+            background-color: #ef4444;
+            box-shadow: 0 0 10px #ef4444;
+        }
+
+        .fbr-status-dot.checking {
+            background-color: #f59e0b;
+            box-shadow: 0 0 10px #f59e0b;
+            animation: pulse-yellow 1.5s infinite;
+        }
+
+        @keyframes pulse-green {
+            0% { transform: scale(1); box-shadow: 0 0 8px #10b981; }
+            50% { transform: scale(1.15); box-shadow: 0 0 14px #10b981; }
+            100% { transform: scale(1); box-shadow: 0 0 8px #10b981; }
+        }
+
+        @keyframes pulse-yellow {
+            0% { transform: scale(1); box-shadow: 0 0 8px #f59e0b; }
+            50% { transform: scale(1.15); box-shadow: 0 0 14px #f59e0b; }
+            100% { transform: scale(1); box-shadow: 0 0 8px #f59e0b; }
+        }
+
+        .fbr-status-text {
+            font-size: 14px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .fbr-status-val {
+            font-weight: 600;
+        }
+
+        .btn-check-fbr {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            color: #fff;
+            padding: 6px 12px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-check-fbr:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.25);
+        }
+
+        .fbr-troubleshoot {
+            display: none;
+            background: rgba(239, 68, 68, 0.08);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+            color: #fca5a5;
+            font-size: 13px;
+            line-height: 1.6;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .fbr-troubleshoot h4 {
+            color: #ef4444;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .fbr-troubleshoot ol {
+            padding-left: 18px;
+            margin-top: 6px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="main-card">
+
+            <!-- HEADER -->
+            <div class="header-box">
+
+                <div class="hospital-logo">
+                    MH
+                </div>
+
+                <div class="hospital-title">
+                    Maida Hospital
+                </div>
+
+                <div class="hospital-subtitle">
+                    China Center Mall Road Abbottabad
+                </div>
+
+            </div>
+
+            <!-- FORM -->
+            <div class="form-section">
+
+                <h2 class="mb-4">
+                    Create Patient Slip
+                </h2>
+
+                <!-- FBR Connection Status Widget -->
+                <div class="fbr-status-widget">
+                    <div class="fbr-status-info">
+                        <div id="fbrStatusDot" class="fbr-status-dot checking"></div>
+                        <span class="fbr-status-text">
+                            FBR Service Status: <span id="fbrStatusText" class="fbr-status-val text-warning">Checking Connection...</span>
+                        </span>
+                    </div>
+                    <button type="button" id="btnCheckFbr" class="btn-check-fbr">
+                        <span id="fbrBtnText">Check Status</span>
+                    </button>
+                </div>
+
+                <!-- FBR Troubleshooting Info -->
+                <div id="fbrTroubleshoot" class="fbr-troubleshoot">
+                    <h4>FBR Local Service is Offline</h4>
+                    <div>Real-time invoice reporting to FBR is currently inactive because the local FBR IMS client software is not running. Please follow these troubleshooting steps:</div>
+                    <ol>
+                        <li>Right-click <strong>InstallFSC.exe</strong> located in <code>C:\Program Files (x86)\PRAL\</code> (or <code>PRAL</code> folder in project) and choose <strong>Run as Administrator</strong>.</li>
+                        <li>Verify the POS ID <code>194518</code> and Access Code <code>C2FE8705</code> are correct, and click <strong>Install</strong>.</li>
+                        <li>After the installation finishes, the service will start and this status indicator will turn green ("Online").</li>
+                    </ol>
+                </div>
+
+                <form id="createSlipForm">
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-4">
+
+                            <label class="form-label">
+                                MR Number
+                            </label>
+
+                            <input type="text" class="form-control" name="mrNumber" placeholder="Example: MR-1005"
+                                required>
+
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+
+                            <label class="form-label">
+                                Slip Type
+                            </label>
+
+                            <select class="form-select" name="slipType" required>
+
+                                <option value="OPD_DAY">
+                                    OPD DAY
+                                </option>
+
+                                <option value="OPD_EVENING">
+                                    OPD EVENING
+                                </option>
+
+                                <option value="OPD_NIGHT">
+                                    OPD NIGHT
+                                </option>
+
+                                <option value="HIJAMA">
+                                    HIJAMA
+                                </option>
+
+                                <option value="ULTRASOUND">
+                                    ULTRASOUND
+                                </option>
+
+                                <option value="LAB">
+                                    LAB
+                                </option>
+
+                                <option value="NORMAL_DELIVERY">
+                                    Miscellaneous
+                                </option>
+
+                                <option value="ENT_OPERATION">
+                                    ENT OPERATION
+                                </option>
+
+                                <option value="DNC">
+                                    OBS Case
+                                </option>
+
+                                <option value="C_SECTION">
+                                    Gynaecologist Case
+                                </option>
+
+                                <option value="ENT">
+                                    ENT
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                        <!-- Dynamic Sub-Options Dropdown -->
+                        <div class="col-md-6 mb-4" id="subOptionsContainer" style="display: none;">
+                            <label class="form-label" id="subOptionsLabel">
+                                Option Details
+                            </label>
+                            <select class="form-select" id="subOptionsSelect" name="selectedOption">
+                                <!-- Populated dynamically -->
+                            </select>
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+
+                            <label class="form-label">
+                                Doctor Name
+                            </label>
+
+                            <input type="text" class="form-control" name="doctorName" placeholder="Enter Doctor Name"
+                                required>
+
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+
+                            <label class="form-label">
+                                Amount
+                            </label>
+
+                            <input type="number" class="form-control" name="amount" placeholder="Enter Amount" required>
+
+                        </div>
+
+                        <div class="col-md-12 mb-4">
+
+                            <label class="form-label">
+                                Payment Status
+                            </label>
+
+                            <select class="form-select" name="paymentStatus" required>
+
+                                <option value="PAID">
+                                    PAID
+                                </option>
+
+                                <option value="UNPAID">
+                                    UNPAID
+                                </option>
+
+                                <option value="HALF_PAID">
+                                    HALF PAID
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                    <div class="d-flex gap-3">
+
+                        <button type="submit" class="btn btn-custom create-btn w-50">
+                            <i class="fa-solid fa-file-lines"></i>
+                            Create Slip
+                        </button>
+
+                        <button type="button" onclick="printSlip()" class="btn btn-custom print-btn w-50">
+                            <i class="fa-solid fa-print"></i>
+                            Print Slip
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- PRINT SLIP -->
+    <div class="slip-preview" id="printSlip">
+
+        <!-- ULTRASOUND HEADER -->
+        <div class="ultrasound-header">
+            <div class="ultrasound-logo-title">
+                <svg viewBox="0 0 600 70" width="100%" height="70">
+                    <path id="curvePathUS" d="M 50 65 Q 300 10 550 65" fill="none" />
+                    <text font-family="'Arial', sans-serif" font-size="34" font-weight="bold" fill="#b10000"
+                        letter-spacing="3">
+                        <textPath href="#curvePathUS" startOffset="50%" text-anchor="middle">MAIDA HOSPITAL</textPath>
+                    </text>
+                </svg>
+            </div>
+            <div class="ultrasound-header-subtitle">
+                CHINA CENTER ABBOTTABAD
+            </div>
+            <div class="ultrasound-header-phone">
+                Ph#: 0992-336060
+            </div>
+            <div class="ultrasound-slip-type-container">
+                <span class="slip-type" id="printSlipTypeUltrasound"></span>
+            </div>
+        </div>
+
+        <!-- ENT HEADER -->
+        <div class="ent-header">
+            <!-- LEFT -->
+            <div class="ent-header-left">
+                <div class="ent-doc-name-eng">Dr. Amjad Ali Khan</div>
+                <div class="ent-doc-sub-eng">M.B.B.S, M.C.P.S, F.C.P.S.</div>
+                <div class="ent-doc-spec-eng">E.N.T. SPECIALIST</div>
+                <div class="ent-doc-addr-eng">THE NALL, ABBOTTABAD. PH: 336060</div>
+                <div class="ent-doc-addr-eng">PMDC No : 3576-N</div>
+            </div>
+
+            <!-- CENTER -->
+            <div class="ent-header-center">
+                <div class="ent-hospital-title">MAIDA HOSPITAL</div>
+                <div class="ent-slip-type-container">
+                    <span class="slip-type" id="printSlipTypeEnt"></span>
+                </div>
+            </div>
+
+            <!-- RIGHT -->
+            <div class="ent-header-right urdu-nastaliq">
+                <div class="ent-doc-name-urdu">ڈاکٹر امجد علی خان</div>
+                <div class="ent-doc-sub-urdu">ایم۔بی۔بی۔ایس، ایم۔سی۔پی۔ایس، ایف۔سی۔پی۔ایس</div>
+                <div class="ent-doc-spec-urdu">ای این ٹی سپیشلسٹ</div>
+                <div class="ent-doc-addr-urdu">دی نال، ایبٹ آباد</div>
+            </div>
+        </div>
+
+        <!-- EVENING/NIGHT HEADER -->
+        <div class="evening-night-header">
+            <!-- Logo Left -->
+            <div class="evening-night-logo-container">
+                <svg viewBox="0 0 120 120" width="100" height="100">
+                    <!-- Outer circles -->
+                    <circle cx="60" cy="60" r="54" fill="none" stroke="#1c3d5a" stroke-width="2" />
+                    <circle cx="60" cy="60" r="48" fill="none" stroke="#1c3d5a" stroke-width="1"
+                        stroke-dasharray="2,2" />
+
+                    <!-- Crescent Moon & Star (in red) -->
+                    <path d="M 68 45 A 20 20 0 1 0 68 85 A 25 25 0 1 1 68 45" fill="#c53030" />
+                    <polygon points="62,56 65,65 74,65 67,70 70,79 62,73 54,79 57,70 50,65 59,65" fill="#c53030" />
+
+                    <!-- Curved Text Banners -->
+                    <path id="textPathTop" d="M 18 60 A 42 42 0 0 1 102 60" fill="none" />
+                    <path id="textPathBottom" d="M 102 60 A 42 42 0 0 1 18 60" fill="none" />
+
+                    <text font-family="Arial" font-size="9" font-weight="bold" fill="#1c3d5a" letter-spacing="0.5">
+                        <textPath href="#textPathTop" startOffset="50%" text-anchor="middle">MAIDA HOSPITAL</textPath>
+                    </text>
+                    <text font-family="Arial" font-size="9" font-weight="bold" fill="#1c3d5a" letter-spacing="0.5">
+                        <textPath href="#textPathBottom" startOffset="50%" text-anchor="middle">ABBOTTABAD</textPath>
+                    </text>
+                </svg>
+            </div>
+
+            <!-- Center Text -->
+            <div class="evening-night-title-container">
+                <div class="evening-night-urdu-title urdu-nastaliq">
+                    مائدہ ہسپتال
+                </div>
+                <div class="evening-night-urdu-specialties urdu-nastaliq">
+                    خصوصی شعبہ جات: گائنی سنٹر، نرسری، ناک کان گلا سنٹر، الٹراساؤنڈ
+                </div>
+                <div class="evening-night-slip-type-container">
+                    <span class="slip-type" id="printSlipTypeEveningNight"></span>
+                </div>
+            </div>
+
+            <!-- Right Date Area -->
+            <div class="evening-night-date-container urdu-nastaliq">
+                <span>تاریخ:</span>
+                <span class="evening-night-date-line"></span>
+            </div>
+        </div>
+
+        <div class="slip-header">
+
+            <!-- LEFT -->
+            <div class="doctor-left">
+
+                <div class="doctor-main">
+                    Lady Dr. Ghazala Amjad
+                </div>
+
+                <div class="doctor-sub">
+                    MBBS (Pesh)
+                </div>
+
+                <div class="doctor-sub">
+                    R.M.P (Islamabad)
+                </div>
+
+                <div class="doctor-sub">
+                    Special Infertility Clinic
+                </div>
+
+                <div class="doctor-sub">
+                    Ph# 0992-336060
+                </div>
+
+                <div class="doctor-sub">
+                    PMDC No : 3659-N
+                </div>
+
+            </div>
+
+            <!-- CENTER -->
+            <div class="hospital-center">
+
+                <div class="urdu-title">
+                    مائدہ ہسپتال
+                </div>
+
+                <div class="hospital-small">
+                    China Center Mall Road Abbottabad
+                </div>
+
+                <div class="middle-note">
+
+                    دوا استعمال کرنے سے قبل<br>
+                    مریض کا نام لازمی لکھیں۔<br>
+                    حسب ہدایت دوا استعمال کریں۔<br>
+                    غلطی کی صورت میں ذمہ داری نہیں ہوگی۔
+
+                </div>
+
+                <div class="emergency">
+                    24 گھنٹے ایمرجنسی
+                </div>
+
+                <div class="slip-type" id="printSlipType"></div>
+
+            </div>
+
+            <!-- RIGHT -->
+            <div class="doctor-right">
+
+                <div class="doctor-main">
+                    لیڈی ڈاکٹر غزالہ امجد
+                </div>
+
+                <div class="doctor-sub">
+                    ایم بی بی ایس پشاور
+                </div>
+
+                <div class="doctor-sub">
+                    آر ایم پی اسلام آباد
+                </div>
+
+                <div class="doctor-sub">
+                    خصوصی شعبہ امراض نسواں
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- PATIENT INFO -->
+        <div class="patient-info">
+
+            <div class="patient-row">
+
+                <div>
+                    Patient :
+                    <span class="field" id="printPatientName"></span>
+                </div>
+
+                <div>
+                    MR :
+                    <span class="field" id="printMr"></span>
+                </div>
+
+                <div>
+                    Date :
+                    <span class="field" id="printDate"></span>
+                </div>
+
+            </div>
+
+            <div class="patient-row">
+
+                <div>
+                    Address :
+                    <span class="field" id="printAddress"></span>
+                </div>
+
+                <div>
+                    Doctor :
+                    <span class="field" id="printDoctor"></span>
+                </div>
+
+            </div>
+
+            <div class="patient-row">
+
+                <div>
+                    Payment :
+                    <span class="field" id="printPayment"></span>
+                </div>
+
+                <div>
+                    Amount :
+                    <span class="field" id="printAmount"></span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- RX AREA -->
+        <div class="rx-area">
+
+            <div class="rx-left">
+
+                <div class="rx-symbol">
+                    ℞
+                </div>
+
+                <div class="medicine-space"></div>
+
+            </div>
+
+            <div class="rx-right">
+
+                <div class="clinical-title">
+                    Clinical Note
+                </div>
+
+                <div class="clinical-item">
+                    Wt
+                </div>
+
+                <div class="clinical-item">
+                    B.P
+                </div>
+
+                <div class="clinical-item">
+                    L.M.P
+                </div>
+
+                <div class="clinical-item">
+                    E.D.D
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ULTRASOUND BODY -->
+        <div class="ultrasound-body">
+            <!-- OBSTETRICAL ULTRA SOUND -->
+            <div class="us-section-title">OBSTETRICAL ULTRA SOUND</div>
+            <div class="us-row">
+                <!-- Column 1 -->
+                <div class="us-col">
+                    <div class="us-field-row">
+                        <span class="us-label">Foetus</span>
+                        <span class="us-dotted-line"></span>
+                    </div>
+                    <div class="us-field-row">
+                        <span class="us-label">Presentation</span>
+                        <span class="us-dotted-line"></span>
+                    </div>
+                    <div class="us-field-row">
+                        <span class="us-label">Lie</span>
+                        <span class="us-dotted-line"></span>
+                    </div>
+                    <div class="us-field-row">
+                        <span class="us-label">Foetal Move</span>
+                        <span class="us-dotted-line"></span>
+                    </div>
+                    <div class="us-field-row">
+                        <span class="us-label">Placenta</span>
+                        <span class="us-dotted-line"></span>
+                    </div>
+                    <div class="us-field-row">
+                        <span class="us-label">Foetal Anamolies</span>
+                        <span class="us-dotted-line"></span>
+                    </div>
+                    <div class="us-field-row">
+                        <span class="us-label">Liquor</span>
+                        <span class="us-dotted-line"></span>
+                    </div>
+                    <div class="us-field-row">
+                        <span class="us-label">Cardiac Act</span>
+                        <span class="us-dotted-line"></span>
+                    </div>
+                </div>
+                <!-- Column 2 -->
+                <div class="us-col">
+                    <div class="us-field-row">
+                        <span class="us-label">Gest. Sac</span>
+                        <span class="us-dotted-line"></span>
+                    </div>
+                    <div class="us-field-row">
+                        <span class="us-label">CRL</span>
+                        <span class="us-dotted-line"></span>
+                    </div>
+                    <div class="us-field-row">
+                        <span class="us-label">B.P.D.</span>
+                        <span class="us-dotted-line"></span>
+                    </div>
+                    <div class="us-field-row">
+                        <span class="us-label">F.L.</span>
+                        <span class="us-dotted-line"></span>
+                    </div>
+                    <div class="us-field-row">
+                        <span class="us-label">A.C.</span>
+                        <span class="us-dotted-line"></span>
+                    </div>
+                    <div class="us-field-row">
+                        <span class="us-label">Gest. Age</span>
+                        <span class="us-dotted-line"></span>
+                    </div>
+                    <div class="us-field-row">
+                        <span class="us-label">E.D.D.</span>
+                        <span class="us-dotted-line"></span>
+                    </div>
+                    <div class="us-field-row">
+                        <span class="us-label">Weight</span>
+                        <span class="us-dotted-line"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PELVIC ULTRA SOUND -->
+            <div class="us-section-title" style="margin-top: 25px;">PELVIC ULTRA SOUND</div>
+            <div class="us-row">
+                <!-- Column 1 -->
+                <div class="us-col">
+                    <div class="us-field-row">
+                        <span class="us-label">UTERUS: Size</span>
+                        <span class="us-dotted-line"></span>
+                    </div>
+                    <div class="us-field-row">
+                        <span class="us-label">Position</span>
+                        <span class="us-dotted-line"></span>
+                    </div>
+                    <div class="us-field-row">
+                        <span class="us-label">Echopattern</span>
+                        <span class="us-dotted-line"></span>
+                    </div>
+                    <div class="us-field-row">
+                        <span class="us-label">Endometrium</span>
+                        <span class="us-dotted-line"></span>
+                    </div>
+                    <div class="us-field-row">
+                        <span class="us-label">Pouch Of Douglas</span>
+                        <span class="us-dotted-line"></span>
+                    </div>
+                </div>
+                <!-- Column 2 -->
+                <div class="us-col">
+                    <div class="us-field-row">
+                        <span class="us-label">OVERIES: Rt.</span>
+                        <span class="us-dotted-line"></span>
+                    </div>
+                    <div class="us-field-row">
+                        <span class="us-label">Lt.</span>
+                        <span class="us-dotted-line"></span>
+                    </div>
+                    <div class="us-field-row">
+                        <span class="us-label">Ecogenicity</span>
+                        <span class="us-dotted-line"></span>
+                    </div>
+                    <div class="us-field-row">
+                        <span class="us-label">Follicles</span>
+                        <span class="us-dotted-line"></span>
+                    </div>
+                    <div class="us-field-row">
+                        <span class="us-label">Adnexa</span>
+                        <span class="us-dotted-line"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FOOTER -->
+            <div class="us-footer">
+                <div class="us-footer-left">NOT VALID FOR COURT USE</div>
+                <div class="us-footer-right">DOCTOR</div>
+            </div>
+        </div>
+
+        <!-- EVENING/NIGHT FOOTER -->
+        <div class="evening-night-footer">
+            <div class="evening-night-footer-left">
+                مال روڈ (چائنا سنٹر) ایبٹ آباد فون نمبر: 336060-0992
+            </div>
+            <div class="evening-night-footer-right urdu-nastaliq">
+                مائدہ ہسپتال
+            </div>
+        </div>
+
+        <!-- ENT FOOTER -->
+        <div class="ent-footer urdu-nastaliq">
+            بیمار کا صحت یاب ہونا آسمان سے طے ہوتا ہے۔ اس بات کا یقین طبیب و مریض دونوں کا ہونا ضروری ہے۔ درست یقین کے
+            ساتھ جب دوا دی اور لی جائے گی تو مریض مطمئن رہے گا۔ طبیب کی ہدایات مریض کے لئے ماننا ضروری ہے۔ پرہیز علاج سے
+            بہتر ہے۔ کھانے میں اعتدال صحت مند رکھتا ہے۔
+        </div>
+
+        <!-- ENT OPERATION CONSENT SLIP BODY -->
+        <div class="ent-operation-body urdu-nastaliq">
+            <!-- Label mimicking the handwritten "ENT Operation" in the image -->
+            <div id="printEntOperationTitleLabel"
+                style="text-align: left; font-size: 13px; font-weight: bold; font-family: 'Arial', sans-serif; padding-left: 15px; margin-bottom: 2px; color: #555; direction: ltr; letter-spacing: 0.5px;">
+                ENT Operation
+            </div>
+            <!-- Banner -->
+            <div class="ent-op-banner">
+                <span class="urdu-nastaliq">فون نمبر: 336060-0992</span>
+                <h1 class="urdu-nastaliq">مائدہ ہسپتال</h1>
+            </div>
+
+            <!-- Sub Header -->
+            <div class="ent-op-sub-header">
+                <div class="location">دی مال ایبٹ آباد</div>
+                <div class="title-ijazat">‹ اجازت نامہ ›</div>
+                <div class="subtitle">برائے آپریشن (ناک۔ کان۔ گلا)</div>
+            </div>
+
+            <!-- Intro -->
+            <div class="ent-op-info-intro">
+                مریض/لواحقین کو آپریشن کے متعلق ضروری معلومات فراہم کر دی ہیں جن میں چند قابل ذکر ہیں۔
+            </div>
+
+            <!-- Medical Details Table -->
+            <table class="ent-op-table">
+                <tr>
+                    <td class="heading-col">ناک</td>
+                    <td class="text-col">
+                        <div>ناک کی ہڈی کا آپریشن تقریباً 18 سال کے بعد بہتر ہوتا ہے اس عمر کے بعد ہڈی دوبارہ نہیں
+                            بڑھتی۔</div>
+                        <div>ناک کی غدود کا آپریشن میں غدود کا دوبارہ بڑھ جانا دیکھا گیا ہے تاہم آپریشن کے بعد مستقل دوا
+                            استعمال کرنے کی ہدایات سے غدود دوبارہ نہیں بنتے۔</div>
+                        <div>ناک کے درمیانی پردے کا سوراخ یا ناک کی adhesions بھی پیچیدگیوں میں شامل ہیں۔</div>
+                        <div>ناک کا بہنا یا خون آنا بسا اوقات ہوتا ہے۔ جس کے لیے دوبارہ آپریشن کرنا پڑتا ہے۔</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="heading-col">کان</td>
+                    <td class="text-col">
+                        <div>کان کے پردے کا آپریشن مختلف طریقوں سے کیا جاتا ہے۔ جن میں مکمل بے ہوشی یا لوکل بے ہوشی شامل
+                            ہے۔ جس طریقے سے بھی آپریشن کیا جائے تقریباً 20-15 فیصد پیوند بہہ جاتا ہے۔</div>
+                        <div>پردہ کے آپریشن سے سماعت میں کوئی خاطر خواہ اضافہ نہیں ہوتا تاہم مزید پیچیدگیوں سے بچا جا
+                            سکتا ہے۔</div>
+                        <div>کان کی پچھلی ہڈی Mastoid کھولنے سے لقوہ کی شکایت ہو سکتی ہے۔</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="heading-col">گلا</td>
+                    <td class="text-col">
+                        <div>خون کا جاری ہونا یا Tonsils کا کچھ حصہ رہ جانا بھی دیکھا گیا ہے۔</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="heading-col">ایڈوسکوپی</td>
+                    <td class="text-col">
+                        <div>دوران اینڈوسکوپی خوراک کی نالی زخمی ہو سکتی ہے جو بعض اوقات پھٹ بھی جاتی ہے جس سے مریض کی
+                            موت بھی واقع ہو سکتی ہے۔</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="heading-col">بے ہوشی کی پیچیدگیاں</td>
+                    <td class="text-col">
+                        <div>بے ہوشی کے دوران مریض بعض اوقات unstable ہو جاتا ہے جو کہ بعض اوقات جان لیوا بھی ثابت ہو
+                            سکتا ہے۔ لوکل بے ہوشی کے دوران بھی دوا کا استعمال کسی بھی دل اور بلڈ پریشر کو بھی متاثر کر
+                            سکتا ہے۔</div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- Upper Dynamic Fields -->
+            <div class="ent-op-fields">
+                <div class="ent-op-fields-row">
+                    <div class="ent-op-field">
+                        <span class="ent-op-field-label">تاریخ:</span>
+                        <span class="ent-op-field-value" id="printDateEntOp"></span>
+                    </div>
+                    <div class="ent-op-field">
+                        <span class="ent-op-field-label">ڈاکٹر کا نام:</span>
+                        <span class="ent-op-field-value" id="printDoctorEntOp"></span>
+                    </div>
+                </div>
+                <div class="ent-op-fields-row">
+                    <div class="ent-op-field">
+                        <span class="ent-op-field-label">مریض کا پتہ:</span>
+                        <span class="ent-op-field-value" id="printAddressEntOp"></span>
+                    </div>
+                    <div class="ent-op-field">
+                        <span class="ent-op-field-label">دستخط:</span>
+                        <span class="ent-op-field-value"></span>
+                    </div>
+                </div>
+                <div class="ent-op-fields-row">
+                    <div class="ent-op-field">
+                        <span class="ent-op-field-label">فون نمبر:</span>
+                        <span class="ent-op-field-value" id="printPhoneEntOp"></span>
+                    </div>
+                    <div class="ent-op-field">
+                        <!-- Left empty to match image structure -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Consent Declaration -->
+            <div class="ent-op-declaration">
+                ڈاکٹر اور ہسپتال کے عملے نے ہمیں آپریشن کے متعلق تمام معلومات فراہم کی ہیں۔ نیز آپریشن نہ کرانے سے ہونے
+                والے خطرات سے بھی آگاہ کر دیا ہے۔ آپریشن کے دوران ہونے والے تمام خطرات سے بھی آگاہ کر دیا ہے۔ جس میں
+                مریض کی موت کا واقع ہونا بھی شامل ہے۔ ہم نے تمام معلومات اور خطرات کو اچھی طرح سمجھ لیا ہے اور ہر خطر ہ
+                لینے کے لیے تیار ہیں۔ کسی ناگہانی صورت حال میں ہم اپنے مریض کی پوری ذمہ داری لیتے ہیں اور ڈاکٹر یا
+                ہسپتال کے عملے کو الزام نہیں دیں گے اور نہ ہی کسی قسم کی قانونی چارہ جوئی کے مجاز ہوں گے۔
+            </div>
+
+            <!-- Center Note -->
+            <div class="ent-op-note-center">
+                آپریشن کے تمام تر واجبات دینے کے پابند ہوں گے جو بھی ہسپتال انتظامیہ طلب کرے۔
+            </div>
+
+            <!-- Signatures Grid -->
+            <div class="ent-op-sigs">
+                <!-- Patient -->
+                <div class="ent-op-sig-row">
+                    <div class="ent-op-sig-col w-35">
+                        <span class="ent-op-sig-label">مریض:</span>
+                        <span class="ent-op-sig-line" id="printPatientNameEntOp"></span>
+                    </div>
+                    <div class="ent-op-sig-col w-30">
+                        <span class="ent-op-sig-label">دستخط:</span>
+                        <span class="ent-op-sig-line"></span>
+                    </div>
+                    <div class="ent-op-sig-col w-35">
+                        <span class="ent-op-sig-label">شناختی کارڈ نمبر:</span>
+                        <span class="ent-op-sig-line"></span>
+                    </div>
+                </div>
+
+                <!-- Waris -->
+                <div class="ent-op-sig-row">
+                    <div class="ent-op-sig-col w-35">
+                        <span class="ent-op-sig-label">وارث:</span>
+                        <span class="ent-op-sig-line" id="printGuardianNameEntOp"></span>
+                    </div>
+                    <div class="ent-op-sig-col w-30">
+                        <span class="ent-op-sig-label">دستخط:</span>
+                        <span class="ent-op-sig-line"></span>
+                    </div>
+                    <div class="ent-op-sig-col w-35">
+                        <span class="ent-op-sig-label">شناختی کارڈ نمبر:</span>
+                        <span class="ent-op-sig-line"></span>
+                    </div>
+                </div>
+
+                <!-- Witness 1 -->
+                <div class="ent-op-sig-row">
+                    <div class="ent-op-sig-col w-35">
+                        <span class="ent-op-sig-label">گواہ نمبر 1:</span>
+                        <span class="ent-op-sig-line"></span>
+                    </div>
+                    <div class="ent-op-sig-col w-30">
+                        <span class="ent-op-sig-label">دستخط:</span>
+                        <span class="ent-op-sig-line"></span>
+                    </div>
+                    <div class="ent-op-sig-col w-35">
+                        <span class="ent-op-sig-label">شناختی کارڈ نمبر:</span>
+                        <span class="ent-op-sig-line"></span>
+                    </div>
+                </div>
+
+                <!-- Witness 2 -->
+                <div class="ent-op-sig-row">
+                    <div class="ent-op-sig-col w-35">
+                        <span class="ent-op-sig-label">گواہ نمبر 2:</span>
+                        <span class="ent-op-sig-line"></span>
+                    </div>
+                    <div class="ent-op-sig-col w-30">
+                        <span class="ent-op-sig-label">دستخط:</span>
+                        <span class="ent-op-sig-line"></span>
+                    </div>
+                    <div class="ent-op-sig-col w-35">
+                        <span class="ent-op-sig-label">شناختی کارڈ نمبر:</span>
+                        <span class="ent-op-sig-line"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- C-SECTION CONSENT SLIP BODY -->
+        <div class="c-section-body urdu-nastaliq">
+            <!-- Label mimicking the handwritten "c/sec" / "C Section" in the image -->
+            <div id="printCSectionTitleLabel"
+                style="text-align: left; font-size: 13px; font-weight: bold; font-family: 'Arial', sans-serif; padding-left: 15px; margin-bottom: 2px; color: #555; direction: ltr; letter-spacing: 0.5px;">
+                Gynaecologist - Case
+            </div>
+            <!-- Banner -->
+            <div class="csec-banner">
+                <span class="urdu-nastaliq">فون نمبر: 336060-0992</span>
+                <h1 class="urdu-nastaliq">مائدہ ہسپتال</h1>
+            </div>
+
+            <!-- Sub Header -->
+            <div class="csec-sub-header">
+                <div class="location">دی مال روڈ ایبٹ آباد</div>
+                <div class="title-ijazat">‹ اجازت نامہ ›</div>
+                <div class="subtitle">آپریشن / طریقہ علاج کا نام</div>
+            </div>
+
+            <!-- Intro -->
+            <div class="csec-info-intro">
+                مریض/لواحقین کو آپریشن/علاج کے متعلق معلومات فراہم کردی ہیں۔ جن میں بچے کو آپریشن کے ذریعے پیدا کرنے کے
+                فوائد اور نہ کرنے کے خطرات سے آگاہ کر دیا ہے۔
+            </div>
+
+            <!-- Lists of Risks -->
+            <div class="csec-list-grid">
+                <div class="csec-list-item">
+                    <span class="star-icon">★</span>
+                    <span class="text-content">دوران آپریشن ہونے والے خطرات کے بارے میں تفصیلات بتا دی ہیں۔</span>
+                </div>
+                <div class="csec-list-item">
+                    <span class="star-icon">★</span>
+                    <span class="text-content">دوران آپریشن ایمرجنسی میں بچہ دانی نکالنے کا خطرہ 1000/ 7-8 عورتیں
+                        ہیں۔</span>
+                </div>
+                <div class="csec-list-item">
+                    <span class="star-icon">★</span>
+                    <span class="text-content">بعد میں دوبارہ آپریشن کا خطرہ 5/1000 عورتیں ہیں۔</span>
+                </div>
+                <div class="csec-list-item">
+                    <span class="star-icon">★</span>
+                    <span class="text-content">انتہائی نگہداشت میں داخلے کا خطرہ 9/1000 عورتیں ہیں۔</span>
+                </div>
+                <div class="csec-list-item">
+                    <span class="star-icon">★</span>
+                    <span class="text-content">اگلے حمل کے دوران بچہ دانی کا پھٹنے کا خطرہ 1000/ 7-2 عورتیں ہیں۔</span>
+                </div>
+                <div class="csec-list-item">
+                    <span class="star-icon">★</span>
+                    <span class="text-content">رگوں میں خون جم جانے کا خطرہ 1610,000 / 4 عورتیں ہیں۔</span>
+                </div>
+                <div class="csec-list-item">
+                    <span class="star-icon">★</span>
+                    <span class="text-content">اگلے حمل میں بچے کا پیٹ میں مر جانے کا خطرہ 1000/ 4-1 عورتیں ہیں۔</span>
+                </div>
+                <div class="csec-list-item">
+                    <span class="star-icon">★</span>
+                    <span class="text-content">اگلے حمل میں آول کا بچہ دانی کا منہ کے آگے ہونے کا خطرہ 1000/ 8-4
+                        ہے۔</span>
+                </div>
+                <div class="csec-list-item">
+                    <span class="star-icon">★</span>
+                    <span class="text-content">مثانے کے زخم کا خطرہ 1/1000 عورتیں ہیں۔</span>
+                </div>
+                <div class="csec-list-item">
+                    <span class="star-icon">★</span>
+                    <span class="text-content">موت کا خطرہ 1/12000 عورتیں ہیں۔</span>
+                </div>
+            </div>
+
+            <!-- Middle split: Left = Fields, Right = Issues Lists -->
+            <div class="csec-two-cols">
+                <!-- Right side: Issues Lists -->
+                <div class="csec-col-lists">
+                    <div class="csec-section-title">عموماً ہونے والے مسائل</div>
+
+                    <div class="csec-sub-section-title">عام:</div>
+                    <div class="csec-issue-item">
+                        <span class="star-icon">★</span>
+                        <span>پیٹ اور زخم میں درد</span>
+                    </div>
+                    <div class="csec-issue-item">
+                        <span class="star-icon">★</span>
+                        <span>دوبارہ آپریشن ہونا</span>
+                    </div>
+                    <div class="csec-issue-item">
+                        <span class="star-icon">★</span>
+                        <span>دوبارہ داخلہ</span>
+                    </div>
+                    <div class="csec-issue-item">
+                        <span class="star-icon">★</span>
+                        <span>بچے کو معمولی زخم</span>
+                    </div>
+
+                    <div class="csec-sub-section-title">کم ہونے والے خطرات:</div>
+                    <div class="csec-issue-item">
+                        <span class="star-icon">★</span>
+                        <span>خون کا زیادہ جانا</span>
+                    </div>
+                    <div class="csec-issue-item">
+                        <span class="star-icon">★</span>
+                        <span>انفیکشن</span>
+                    </div>
+                </div>
+
+                <!-- Left side: Form fields -->
+                <div class="csec-col-fields">
+                    <div class="csec-field">
+                        <span class="csec-field-label">ڈاکٹر کا نام:</span>
+                        <span class="csec-field-value" id="printDoctorCsec"></span>
+                    </div>
+                    <div class="csec-field">
+                        <span class="csec-field-label">دستخط:</span>
+                        <span class="csec-field-value"></span>
+                    </div>
+                    <div class="csec-field">
+                        <span class="csec-field-label">تاریخ:</span>
+                        <span class="csec-field-value" id="printDateCsec"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Consent Declaration -->
+            <div class="csec-declaration">
+                ڈاکٹر اور ہسپتال کے عملے نے ہمیں آپریشن کے متعلق تمام معلومات فراہم کی ہیں۔ نیز آپریشن نہ کرانے سے ہونے
+                والے خطرات سے بھی آگاہ کر دیا ہے۔ آپریشن کے دوران ہونے والے تمام خطرات سے بھی آگاہ کر دیا ہے۔ جس میں
+                مریضوں کی موت کا واقعہ ہونا بھی شامل ہے۔ ہم نے تمام معلومات اور خطرات کو اچھی طرح سمجھ لیا ہے اور ہر خطر
+                ہ لینے کے لیے تیار ہیں۔ کسی ناگہانی صورت حال میں ہم اپنے مریض کی پوری ذمہ داری لیتے ہیں اور ڈاکٹر یا
+                ہسپتال کے عملے کو الزام نہیں دیں گے اور نہ ہی کسی قسم کی قانونی چارہ جوئی کے مجاز ہوں گے۔
+                <br>
+                مریض کا معمول سے زیادہ ہسپتال میں قیام پر اضافی چارجز دینے لازمی ہیں دواؤں کے اضافی اخراجات دینے کے بھی
+                پابند ہوں گے۔
+            </div>
+
+            <!-- Center Note -->
+            <div class="csec-note-center">
+                آپریشن کے تمام تر واجبات دینے کے پابند ہوں گے جو بھی ہسپتال انتظامیہ طلب کرے۔
+            </div>
+
+            <!-- Address and Phone Details Block -->
+            <div class="csec-patient-details-block">
+                <div class="csec-patient-row">
+                    <div class="csec-patient-field w-100">
+                        <span class="csec-patient-label">ایڈریس:</span>
+                        <span class="csec-patient-value" id="printAddressCsec"></span>
+                    </div>
+                </div>
+                <div class="csec-patient-row">
+                    <div class="csec-patient-field w-50">
+                        <span class="csec-patient-label">فون نمبر 1:</span>
+                        <span class="csec-patient-value" id="printPhone1Csec"></span>
+                    </div>
+                    <div class="csec-patient-field w-50">
+                        <span class="csec-patient-label">فون نمبر 2:</span>
+                        <span class="csec-patient-value"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Signatures Grid -->
+            <div class="csec-sigs">
+                <!-- Patient -->
+                <div class="csec-sig-row">
+                    <div class="csec-sig-col w-35">
+                        <span class="csec-sig-label">مریض:</span>
+                        <span class="csec-sig-line" id="printPatientNameCsec"></span>
+                    </div>
+                    <div class="csec-sig-col w-30">
+                        <span class="csec-sig-label">دستخط:</span>
+                        <span class="csec-sig-line"></span>
+                    </div>
+                    <div class="csec-sig-col w-35">
+                        <span class="csec-sig-label">شناختی کارڈ نمبر:</span>
+                        <span class="csec-sig-line"></span>
+                    </div>
+                </div>
+
+                <!-- Waris/Sarparast -->
+                <div class="csec-sig-row">
+                    <div class="csec-sig-col w-35">
+                        <span class="csec-sig-label">وارث:</span>
+                        <span class="csec-sig-line" id="printGuardianNameCsec"></span>
+                    </div>
+                    <div class="csec-sig-col w-30">
+                        <span class="csec-sig-label">دستخط:</span>
+                        <span class="csec-sig-line"></span>
+                    </div>
+                    <div class="csec-sig-col w-35">
+                        <span class="csec-sig-label">شناختی کارڈ نمبر:</span>
+                        <span class="csec-sig-line"></span>
+                    </div>
+                </div>
+
+                <!-- Witness 1 -->
+                <div class="csec-sig-row">
+                    <div class="csec-sig-col w-35">
+                        <span class="csec-sig-label">گواہ نمبر 1:</span>
+                        <span class="csec-sig-line"></span>
+                    </div>
+                    <div class="csec-sig-col w-30">
+                        <span class="csec-sig-label">دستخط:</span>
+                        <span class="csec-sig-line"></span>
+                    </div>
+                    <div class="csec-sig-col w-35">
+                        <span class="csec-sig-label">شناختی کارڈ نمبر:</span>
+                        <span class="csec-sig-line"></span>
+                    </div>
+                </div>
+
+                <!-- Witness 2 -->
+                <div class="csec-sig-row">
+                    <div class="csec-sig-col w-35">
+                        <span class="csec-sig-label">گواہ نمبر 2:</span>
+                        <span class="csec-sig-line"></span>
+                    </div>
+                    <div class="csec-sig-col w-30">
+                        <span class="csec-sig-label">دستخط:</span>
+                        <span class="csec-sig-line"></span>
+                    </div>
+                    <div class="csec-sig-col w-35">
+                        <span class="csec-sig-label">شناختی کارڈ نمبر:</span>
+                        <span class="csec-sig-line"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- NORMAL DELIVERY CONSENT SLIP BODY -->
+        <div class="normal-delivery-body urdu-nastaliq">
+            <!-- Label mimicking the handwritten "Normal Delivery" in the image -->
+            <div id="printNormalDeliveryTitleLabel"
+                style="text-align: left; font-size: 14px; font-weight: bold; font-family: 'Arial', sans-serif; padding-left: 15px; margin-bottom: 10px; color: #000; direction: ltr; letter-spacing: 0.5px;">
+                Miscellaneous
+            </div>
+
+            <!-- Title -->
+            <div class="norm-title-container">
+                <div class="title-ijazat">اجازت نامہ</div>
+            </div>
+
+            <!-- Opening sentence -->
+            <div class="norm-consent-opening">
+                میں اپنی مریضہ <span class="norm-opening-line" id="printPatientNameNorm"></span> زوجہ <span
+                    class="norm-opening-line" id="printGuardianNameNorm"></span>
+                کو مائدہ ہسپتال میں زچگی یعنی ڈلیوری کیس کروانے کی اجازت دیتا/دیتی ہوں۔
+            </div>
+            <br>
+            <!-- Consent Paragraphs -->
+            <div class="norm-paragraphs">
+                <div class="norm-paragraph">
+                    دورانِ زچگی کسی بھی پیچیدگی کی وجہ سے اگر بڑا یا چھوٹا آپریشن کرنا پڑا جسے کنسلٹنٹ ڈاکٹر ضروری سمجھے
+                    تو اس صورت میں پیشگی اجازت دیتا/دیتی ہوں۔ آپریشن اور بے ہوشی کی پیچیدگیوں سے مجھے آگاہ کر دیا گیا ہے
+                    جن میں موت بھی واقع ہو سکتی ہے۔ نیز آپریشن کے تمام واجبات ادا کروانے کا/کی پابند ہوں گا/گی۔
+                </div>
+                <div class="norm-paragraph">
+                    نومولود بچوں کو ابتدائی طبی خدمات کے لیے نرسری موجود ہے تاہم پیچیدگی کی صورت میں بچوں کو کسی بڑے
+                    ہسپتال میں ریفر کیا جائے گا۔
+                </div>
+                <div class="norm-paragraph">
+                    مائدہ ہسپتال میں معمول کے مطابق ایمرجنسی کور کیلئے رات، دن ڈاکٹر صاحبان کی خدمات ہوتی ہیں تاہم
+                    متعلقہ شعبے کے ماہر ڈاکٹرز جیسے سرجن، گائناکالوجسٹ یا ڈاکٹر کو کال کر کے بلایا جاتا ہے۔ اس دوران
+                    ہسپتال کا ماہر عملہ مریض کی نگہداشت کرتا ہے۔
+                </div>
+                <div class="norm-paragraph">
+                    میں نے ہسپتال ہذا کی موجود سہولیات کا بغور جائزہ لے لیا ہے میں حلفاً اقراری ہوں کہ کسی بھی ناخوشگوار
+                    واقع کی ذمہ داری ہسپتال پر ہرگز عائد نہیں ہو گی۔
+                </div>
+                <div class="norm-paragraph">
+                    مریض کا معمول سے زیادہ ہسپتال میں قیام پر اضافی چارجز دینے لازمی ہیں دواؤں کے اضافی اخراجات دینے کے
+                     پابند ہوں گے۔
+                </div>
+            </div>
+
+            <!-- Dotted fields at the bottom -->
+            <div class="norm-fields-grid">
+                <div class="norm-fields-row">
+                    <div class="norm-field w-100">
+                        <span class="norm-field-label">شناختی کارڈ کی کاپی</span>
+                        <span class="norm-field-value"></span>
+                    </div>
+                </div>
+                <div class="norm-fields-row">
+                    <div class="norm-field w-100">
+                        <span class="norm-field-label">ایڈریس</span>
+                        <span class="norm-field-value" id="printAddressNorm"></span>
+                    </div>
+                </div>
+                <div class="norm-fields-row">
+                    <div class="norm-field w-50">
+                        <span class="norm-field-label">تاریخ</span>
+                        <span class="norm-field-value" id="printDateNorm"></span>
+                    </div>
+                    <div class="norm-field w-50">
+                        <span class="norm-field-label">نام</span>
+                        <span class="norm-field-value" id="printGuardianNameFieldNorm"></span>
+                    </div>
+                </div>
+                <div class="norm-fields-row">
+                    <div class="norm-field w-50">
+                        <span class="norm-field-label">مریضہ سے رشتہ</span>
+                        <span class="norm-field-value" id="printGuardianRelationNorm"></span>
+                    </div>
+                    <div class="norm-field w-50">
+                        <span class="norm-field-label">انگوٹھا</span>
+                        <span class="norm-field-value"></span>
+                    </div>
+                </div>
+                <div class="norm-fields-row">
+                    <div class="norm-field w-50">
+                        <span class="norm-field-label">دستخط</span>
+                        <span class="norm-field-value"></span>
+                    </div>
+                    <div class="norm-field w-50">
+                        <span class="norm-field-label">فون نمبر 1</span>
+                        <span class="norm-field-value" id="printPhone1Norm"></span>
+                    </div>
+                </div>
+                <div class="norm-fields-row">
+                    <div class="norm-field w-50">
+                        <span class="norm-field-value"></span>
+                    </div>
+                    <div class="norm-field w-50">
+                        <span class="norm-field-label">فون نمبر 2</span>
+                        <span class="norm-field-value"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DNC CONSENT SLIP BODY -->
+        <div class="dnc-body">
+            <!-- Label mimicking the handwritten "D&C" in the image -->
+            <div id="printDncTitleLabel"
+                style="text-align: left; font-size: 14px; font-weight: bold; font-family: 'Arial', sans-serif; padding-left: 15px; margin-bottom: 10px; color: #000; direction: ltr; letter-spacing: 0.5px;">
+                OBS - Case
+            </div>
+
+            <!-- Header -->
+            <div class="dnc-header-container">
+                <h1 class="dnc-hospital-title">MAIDA HOSPITAL</h1>
+                <div class="dnc-hospital-subtitle">The Mall, Abbottabad Ph#: 0992-336060</div>
+            </div>
+
+            <!-- Date Row -->
+            <div class="dnc-date-row">
+                Date: <span class="dnc-date-underline" id="printDateDnc"></span>
+            </div>
+
+            <!-- Consent Form Title -->
+            <div class="dnc-consent-title-box">
+                <div class="dnc-consent-title">CONSENT FORM</div>
+            </div>
+
+            <!-- English Paragraph / Fields -->
+            <!-- English Paragraph / Fields -->
+            <div class="dnc-text-line">
+
+                I <span class="dnc-underline-field" style="min-width: 250px;" id="printPatientNameDnc"></span>
+
+                S/o <span class="dnc-underline-field" style="min-width: 250px;" id="printGuardianNameDnc"></span>
+
+                am willing for any kind of anaesthesia for Operation Knowing hazards and complications of anaesthesia
+                and operation.
+
+            </div>
+
+            <!-- English Signatures -->
+            <div class="dnc-sig-block">
+                <div class="dnc-sig-row">
+                    <div class="dnc-sig-col">
+                        Patient's Name & Signature: <span class="dnc-sig-line" id="printPatientNameSigDnc"></span>
+                    </div>
+                </div>
+                <div class="dnc-sig-row">
+                    <div class="dnc-sig-col">
+                        Guardian's Name & Signature: <span class="dnc-sig-line" id="printGuardianNameSigDnc"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Urdu Section -->
+            <div class="dnc-urdu-section urdu-nastaliq">
+                <!-- Center Title -->
+                <div class="dnc-urdu-title">اجازت نامہ برائے آپریشن</div>
+
+                <!-- Urdu Consent Statement -->
+                <div class="dnc-urdu-paragraph">
+
+                    میں <span class="dnc-urdu-underline" style="min-width: 220px;" id="printPatientNameUrduDnc"></span>
+
+                    ولد <span class="dnc-urdu-underline" style="min-width: 220px;" id="printGuardianNameUrduDnc"></span>
+
+                    آپریشن کے لیے ہر قسم کی بے ہوشی کی اجازت دیتا/دیتی ہوں۔ نیز آپریشن اور بے ہوشی کی پیچیدگیوں اور کسی
+                    قسم کے نقصان کا ذمہ دار ہسپتال نہ ہوگا۔
+
+                </div>
+
+                <!-- Urdu Bottom Fields -->
+                <div class="dnc-urdu-sigs">
+                    <div class="dnc-urdu-sig-row">
+                        <div class="dnc-urdu-sig-col">
+                            <span class="dnc-urdu-sig-label">مریض کا نام اور دستخط</span>
+                            <span class="dnc-urdu-sig-line" id="printPatientUrduSigDnc"></span>
+                        </div>
+                    </div>
+                    <div class="dnc-urdu-sig-row">
+                        <div class="dnc-urdu-sig-col">
+                            <span class="dnc-urdu-sig-label">سرپرست کا نام اور دستخط</span>
+                            <span class="dnc-urdu-sig-line" id="printGuardianUrduSigDnc"></span>
+                        </div>
+                    </div>
+                    <div class="dnc-urdu-sig-row">
+                        <div class="dnc-urdu-sig-col" style="width: 50%;">
+                            <span class="dnc-urdu-sig-label">تاریخ</span>
+                            <span class="dnc-urdu-sig-line" id="printDateUrduDnc"
+                                style="border-bottom: 1px dotted #000;"></span>
+                        </div>
+                        <div class="dnc-urdu-sig-col" style="width: 50%;">
+                            <!-- Spacing column -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- HIJAMA PATIENT CARD BODY -->
+        <div class="hijama-body">
+            <!-- Label mimicking the handwritten "Hijama" in the image -->
+            <div
+                style="text-align: left; font-size: 14px; font-weight: bold; font-family: 'Arial', sans-serif; padding-left: 15px; margin-bottom: 10px; color: #000; direction: ltr; letter-spacing: 0.5px;">
+                hijama slip
+            </div>
+
+            <!-- Top Header row -->
+            <div class="hij-top-row">
+                <!-- Logo area on the right/left -->
+                <div class="hij-logo-area">
+                    <svg viewBox="0 0 100 80" width="70" height="60">
+                        <path d="M 50 10 Q 65 35 75 40 Q 50 45 25 40 Q 35 35 50 10 Z" fill="#fff" stroke="#b10000"
+                            stroke-width="2" />
+                        <path d="M 50 10 L 50 42" stroke="#b10000" stroke-width="1.5" stroke-dasharray="2,2" />
+                        <rect x="23" y="42" width="54" height="15" fill="#fff" stroke="#b10000" stroke-width="1.5" />
+                        <text x="50" y="52" font-size="7" font-weight="bold" fill="#b10000" text-anchor="middle"
+                            font-family="Arial">SUNNAH</text>
+                        <path d="M 20 57 Q 50 63 80 57 L 80 65 Q 50 71 20 65 Z" fill="#b10000" stroke="#b10000"
+                            stroke-width="1" />
+                    </svg>
+                    <div class="hij-logo-text urdu-nastaliq">مائدہ ہسپتال</div>
+                </div>
+
+                <!-- Title in Urdu -->
+                <div class="hij-title-red urdu-nastaliq">
+                    حجامہ کوائف
+                </div>
+            </div>
+
+            <!-- Personal Info Grid -->
+            <div class="hij-info-grid">
+                <div class="hij-info-row">
+                    <div class="hij-field" style="width: 70%;">
+                        <span class="hij-field-label">نام</span>
+                        <div class="hij-field-box" id="printPatientNameHij"></div>
+                    </div>
+                    <div class="hij-field" style="width: 28%;">
+                        <span class="hij-field-label">نمبر</span>
+                        <div class="hij-field-box" id="printMrHij"></div>
+                    </div>
+                </div>
+                <div class="hij-info-row">
+                    <div class="hij-field" style="width: 25%;">
+                        <span class="hij-field-label">عمر</span>
+                        <div class="hij-field-box" id="printAgeHij"></div>
+                    </div>
+                    <div class="hij-field" style="width: 25%;">
+                        <span class="hij-field-label">جنس</span>
+                        <div class="hij-field-box" id="printGenderHij"></div>
+                    </div>
+                    <div class="hij-field" style="width: 46%;">
+                        <span class="hij-field-label">پتہ</span>
+                        <div class="hij-field-box" id="printAddressHij"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Two columns for medical details -->
+            <div class="hij-cols-container">
+                <!-- Left Column: Weight, Cups, Flow -->
+                <div class="hij-col">
+                    <div class="hij-item-row">
+                        <span class="hij-item-label">وزن</span>
+                        <div class="hij-item-box"></div>
+                    </div>
+                    <div class="hij-item-row">
+                        <span class="hij-item-label">تعداد کپ</span>
+                        <div class="hij-item-box"></div>
+                    </div>
+                    <div class="hij-item-row">
+                        <span class="hij-item-label">خون کا بہاؤ</span>
+                        <div class="hij-item-box"></div>
+                    </div>
+
+                    <div class="hij-item-row" style="margin-top: 15px;">
+                        <span class="hij-item-label">وزن</span>
+                        <div class="hij-item-box"></div>
+                    </div>
+                    <div class="hij-item-row">
+                        <span class="hij-item-label">تعداد کپ</span>
+                        <div class="hij-item-box"></div>
+                    </div>
+                    <div class="hij-item-row">
+                        <span class="hij-item-label">خون کا بہاؤ</span>
+                        <div class="hij-item-box"></div>
+                    </div>
+
+                    <div class="hij-item-row" style="margin-top: 15px;">
+                        <span class="hij-item-label">وزن</span>
+                        <div class="hij-item-box"></div>
+                    </div>
+                    <div class="hij-item-row">
+                        <span class="hij-item-label">تعداد کپ</span>
+                        <div class="hij-item-box"></div>
+                    </div>
+                    <div class="hij-item-row">
+                        <span class="hij-item-label">خون کا بہاؤ</span>
+                        <div class="hij-item-box"></div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Date, BP, Last BP -->
+                <div class="hij-col">
+                    <div class="hij-item-row">
+                        <span class="hij-item-label">تاریخ I</span>
+                        <div class="hij-item-box" id="printDate1Hij"></div>
+                    </div>
+                    <div class="hij-item-row">
+                        <span class="hij-item-label">بلڈ پریشر I</span>
+                        <div class="hij-item-box"></div>
+                    </div>
+                    <div class="hij-item-row">
+                        <span class="hij-item-label">آخری بلڈ پریشر</span>
+                        <div class="hij-item-box"></div>
+                    </div>
+
+                    <div class="hij-item-row" style="margin-top: 15px;">
+                        <span class="hij-item-label">تاریخ II</span>
+                        <div class="hij-item-box"></div>
+                    </div>
+                    <div class="hij-item-row">
+                        <span class="hij-item-label">بلڈ پریشر II</span>
+                        <div class="hij-item-box"></div>
+                    </div>
+                    <div class="hij-item-row">
+                        <span class="hij-item-label">آخری بلڈ پریشر</span>
+                        <div class="hij-item-box"></div>
+                    </div>
+
+                    <div class="hij-item-row" style="margin-top: 15px;">
+                        <span class="hij-item-label">تاریخ III</span>
+                        <div class="hij-item-box"></div>
+                    </div>
+                    <div class="hij-item-row">
+                        <span class="hij-item-label">بلڈ پریشر III</span>
+                        <div class="hij-item-box"></div>
+                    </div>
+                    <div class="hij-item-row">
+                        <span class="hij-item-label">آخری بلڈ پریشر</span>
+                        <div class="hij-item-box"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sunnah Dates Bottom Section -->
+            <div class="hij-bottom-boxes urdu-nastaliq">
+                <!-- 21 -->
+                <div class="hij-sunnah-box">
+                    <div class="hij-sunnah-header">21</div>
+                    <div class="hij-sunnah-item">حجامہ سنت ہے</div>
+                    <div class="hij-sunnah-item">شفاء ہے</div>
+                    <div class="hij-sunnah-item">رحمت ہے</div>
+                    <div class="hij-sunnah-item">خیر و برکت ہے</div>
+                </div>
+                <!-- 19 -->
+                <div class="hij-sunnah-box">
+                    <div class="hij-sunnah-header">19</div>
+                    <div class="hij-sunnah-item">حجامہ سنت ہے</div>
+                    <div class="hij-sunnah-item">شفاء ہے</div>
+                    <div class="hij-sunnah-item">رحمت ہے</div>
+                    <div class="hij-sunnah-item">خیر و برکت ہے</div>
+                </div>
+                <!-- 17 -->
+                <div class="hij-sunnah-box">
+                    <div class="hij-sunnah-header">17</div>
+                    <div class="hij-sunnah-item">حجامہ سنت ہے</div>
+                    <div class="hij-sunnah-item">شفاء ہے</div>
+                    <div class="hij-sunnah-item">رحمت ہے</div>
+                    <div class="hij-sunnah-item">خیر و برکت ہے</div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="hij-footer-green ltr" style="direction: ltr;">
+                <span>0300-5900019</span>
+                <span>Email: noumanmostufa@gmail.com</span>
+                <span>Ph: 0992-336060</span>
+            </div>
+        </div>
+
+        <!-- LAB HEADER -->
+        <div class="lab-header">
+            <!-- Logo Left -->
+            <div class="lab-logo-container">
+                <svg viewBox="0 0 120 120" width="80" height="80">
+                    <circle cx="60" cy="60" r="54" fill="none" stroke="#1c3d5a" stroke-width="2" />
+                    <circle cx="60" cy="60" r="48" fill="none" stroke="#1c3d5a" stroke-width="1"
+                        stroke-dasharray="2,2" />
+                    <path d="M 68 45 A 20 20 0 1 0 68 85 A 25 25 0 1 1 68 45" fill="#b10000" />
+                    <polygon points="62,56 65,65 74,65 67,70 70,79 62,73 54,79 57,70 50,65 59,65" fill="#b10000" />
+                    <path id="labTextPathTop" d="M 18 60 A 42 42 0 0 1 102 60" fill="none" />
+                    <path id="labTextPathBottom" d="M 102 60 A 42 42 0 0 1 18 60" fill="none" />
+                    <text font-family="Arial" font-size="9" font-weight="bold" fill="#1c3d5a" letter-spacing="0.5">
+                        <textPath href="#labTextPathTop" startOffset="50%" text-anchor="middle">MAIDA HOSPITAL
+                        </textPath>
+                    </text>
+                    <text font-family="Arial" font-size="9" font-weight="bold" fill="#1c3d5a" letter-spacing="0.5">
+                        <textPath href="#labTextPathBottom" startOffset="50%" text-anchor="middle">ABBOTTABAD</textPath>
+                    </text>
+                </svg>
+            </div>
+
+            <!-- Center Text -->
+            <div class="lab-title-container">
+                <h1 class="lab-hospital-title">MAIDA HOSPITAL</h1>
+                <div class="lab-affiliation">AFFILIATED WITH HAMEDLABORATORY</div>
+                <div class="lab-contact">Ph: 0992-336060, Mob #: 0321-1322555</div>
+            </div>
+
+            <!-- Crescent Right -->
+            <div class="lab-crescent-container">
+                <svg viewBox="0 0 100 100" width="70" height="70">
+                    <path d="M 75 15 A 38 38 0 1 0 75 85 A 33 33 0 1 1 75 15" fill="#b10000" />
+                </svg>
+            </div>
+        </div>
+
+        <!-- <div class="lab-report-bar">Laboratory Report</div> -->
+
+        <!-- LAB PATIENT INFO -->
+        <div class="lab-patient-info">
+            <div class="lab-patient-row">
+                <div class="lab-patient-field" style="width: 50%;">
+                    <span class="lab-patient-label">Patient's Name:</span>
+                    <span class="lab-patient-value" id="printPatientNameLab"></span>
+                </div>
+                <div class="lab-patient-field" style="width: 25%;">
+                    <span class="lab-patient-label">Lab. No:</span>
+                    <span class="lab-patient-value" id="printMrLab"></span>
+                </div>
+                <div class="lab-patient-field" style="width: 25%;">
+                    <span class="lab-patient-label">Date:</span>
+                    <span class="lab-patient-value" id="printDateLab"></span>
+                </div>
+            </div>
+            <div class="lab-patient-row">
+                <div class="lab-patient-field" style="width: 50%;">
+                    <span class="lab-patient-label">Doctor Name:</span>
+                    <span class="lab-patient-value" id="printDoctorLab"></span>
+                </div>
+                <div class="lab-patient-field" style="width: 25%;">
+                    <span class="lab-patient-label">Address:</span>
+                    <span class="lab-patient-value" id="printAddressLab"></span>
+                </div>
+                <div class="lab-patient-field" style="width: 25%;">
+                    <span class="lab-patient-label">Amount / Status:</span>
+                    <span class="lab-patient-value" id="printAmountPaymentLab"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- LAB BODY -->
+        <div class="lab-body">
+            <div class="lab-cols">
+
+                <!-- LEFT COLUMN: Haemotology & Biochemistry & ICT TB -->
+                <div class="lab-col-left">
+
+                    <!-- HAEMOTOLOGY -->
+                    <div class="lab-section">
+                        <div class="lab-section-header">Haemotology</div>
+
+                        <div class="lab-item">
+                            <span class="lab-item-name">Hb%</span>
+                            <span class="lab-item-dots"></span>
+                            <div class="lab-item-val-unit">
+                                <span class="lab-item-val">gl/dl</span>
+                                <span class="lab-item-range">M: 13-18<br>F: 12-16</span>
+                            </div>
+                        </div>
+
+                        <div class="lab-item">
+                            <span class="lab-item-name">TLC</span>
+                            <span class="lab-item-dots"></span>
+                            <div class="lab-item-val-unit">
+                                <span class="lab-item-val">cmm</span>
+                                <span class="lab-item-range">4000-11000</span>
+                            </div>
+                        </div>
+
+                        <div class="lab-item" style="font-weight: bold; margin-bottom: 2px;">
+                            <span class="lab-item-name" style="text-decoration: underline;">DLC</span>
+                            <span></span>
+                            <span></span>
+                        </div>
+
+                        <div class="lab-sub-item">
+                            <span class="lab-sub-item-name">Neutrophils</span>
+                            <span class="lab-sub-item-dots"></span>
+                            <div class="lab-sub-item-val-unit">
+                                <span class="lab-item-val">%</span>
+                                <span class="lab-item-range">40-75%</span>
+                            </div>
+                        </div>
+
+                        <div class="lab-sub-item">
+                            <span class="lab-sub-item-name">Lymphocytes</span>
+                            <span class="lab-sub-item-dots"></span>
+                            <div class="lab-sub-item-val-unit">
+                                <span class="lab-item-val">%</span>
+                                <span class="lab-item-range">20-45%</span>
+                            </div>
+                        </div>
+
+                        <div class="lab-sub-item">
+                            <span class="lab-sub-item-name">Monocytes</span>
+                            <span class="lab-sub-item-dots"></span>
+                            <div class="lab-sub-item-val-unit">
+                                <span class="lab-item-val">%</span>
+                                <span class="lab-item-range">2-10%</span>
+                            </div>
+                        </div>
+
+                        <div class="lab-sub-item">
+                            <span class="lab-sub-item-name">Eosinophils</span>
+                            <span class="lab-sub-item-dots"></span>
+                            <div class="lab-sub-item-val-unit">
+                                <span class="lab-item-val">%</span>
+                                <span class="lab-item-range">1-6%</span>
+                            </div>
+                        </div>
+
+                        <div class="lab-item">
+                            <span class="lab-item-name">Platelets</span>
+                            <span class="lab-item-dots"></span>
+                            <div class="lab-item-val-unit">
+                                <span class="lab-item-val">cmm</span>
+                                <span class="lab-item-range" style="font-size: 8px;">150,000-400,000</span>
+                            </div>
+                        </div>
+
+                        <div class="lab-item">
+                            <span class="lab-item-name">ESR</span>
+                            <span class="lab-item-dots"></span>
+                            <div class="lab-item-val-unit">
+                                <span class="lab-item-val">mm 1hr wg</span>
+                                <span class="lab-item-range">M: 0-9<br>F: 0-12</span>
+                            </div>
+                        </div>
+
+                        <div class="lab-item">
+                            <span class="lab-item-name">B.T (Ivy)</span>
+                            <span class="lab-item-dots"></span>
+                            <div class="lab-item-val-unit">
+                                <span class="lab-item-val">min &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sec</span>
+                                <span class="lab-item-range">upto 9min</span>
+                            </div>
+                        </div>
+
+                        <div class="lab-item">
+                            <span class="lab-item-name">C.T (Lec. White)</span>
+                            <span class="lab-item-dots"></span>
+                            <div class="lab-item-val-unit">
+                                <span class="lab-item-val">min &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sec</span>
+                                <span class="lab-item-range">upto 11min</span>
+                            </div>
+                        </div>
+
+                        <div class="lab-item">
+                            <span class="lab-item-name">P.T</span>
+                            <span class="lab-item-dots"></span>
+                            <div class="lab-item-val-unit">
+                                <span class="lab-item-val"></span>
+                                <span class="lab-item-range">12-14sec</span>
+                            </div>
+                        </div>
+
+                        <div class="lab-item">
+                            <span class="lab-item-name">APTT</span>
+                            <span class="lab-item-dots"></span>
+                            <div class="lab-item-val-unit">
+                                <span class="lab-item-val"></span>
+                                <span class="lab-item-range">35-40sec</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- BIOCHEMISTRY -->
+                    <div class="lab-section">
+                        <div class="lab-section-header">Biochemistry</div>
+
+                        <div class="lab-item">
+                            <span class="lab-item-name">Glucose (F)</span>
+                            <span class="lab-item-dots"></span>
+                            <div class="lab-item-val-unit">
+                                <span class="lab-item-val">mg/dl</span>
+                                <span class="lab-item-range">70-110</span>
+                            </div>
+                        </div>
+
+                        <div class="lab-item">
+                            <span class="lab-item-name">Glucose (R)</span>
+                            <span class="lab-item-dots"></span>
+                            <div class="lab-item-val-unit">
+                                <span class="lab-item-val">mg/dl</span>
+                                <span class="lab-item-range">up to 180</span>
+                            </div>
+                        </div>
+
+                        <div class="lab-item">
+                            <span class="lab-item-name">Urea</span>
+                            <span class="lab-item-dots"></span>
+                            <div class="lab-item-val-unit">
+                                <span class="lab-item-val">mg/dl</span>
+                                <span class="lab-item-range">12-50</span>
+                            </div>
+                        </div>
+
+                        <div class="lab-item">
+                            <span class="lab-item-name">S.creatinine</span>
+                            <span class="lab-item-dots"></span>
+                            <div class="lab-item-val-unit">
+                                <span class="lab-item-val">mg/dl</span>
+                                <span class="lab-item-range">0.5-1.5</span>
+                            </div>
+                        </div>
+
+                        <div class="lab-item">
+                            <span class="lab-item-name">Uric Acid</span>
+                            <span class="lab-item-dots"></span>
+                            <div class="lab-item-val-unit">
+                                <span class="lab-item-val">mg/dl</span>
+                                <span class="lab-item-range">M: 3.7-7.2<br>F: 2.6-6</span>
+                            </div>
+                        </div>
+
+                        <div class="lab-item">
+                            <span class="lab-item-name">S.calcium</span>
+                            <span class="lab-item-dots"></span>
+                            <div class="lab-item-val-unit">
+                                <span class="lab-item-val">mg/dl</span>
+                                <span class="lab-item-range">9-11</span>
+                            </div>
+                        </div>
+
+                        <div class="lab-item">
+                            <span class="lab-item-name">S.Bilirubin</span>
+                            <span class="lab-item-dots"></span>
+                            <div class="lab-item-val-unit">
+                                <span class="lab-item-val">g/dl</span>
+                                <span class="lab-item-range">0.1-1.2</span>
+                            </div>
+                        </div>
+
+                        <div class="lab-item">
+                            <span class="lab-item-name">S.GPT (ALT)</span>
+                            <span class="lab-item-dots"></span>
+                            <div class="lab-item-val-unit">
+                                <span class="lab-item-val">U/l</span>
+                                <span class="lab-item-range">upto 40</span>
+                            </div>
+                        </div>
+
+                        <div class="lab-item">
+                            <span class="lab-item-name">Alk Phos (ALT)</span>
+                            <span class="lab-item-dots"></span>
+                            <div class="lab-item-val-unit">
+                                <span class="lab-item-val">U/l</span>
+                                <span class="lab-item-range">64-306</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ICT Tuberculosis Test -->
+                    <div class="lab-section">
+                        <div class="lab-ict-title">ICT Tuberculosis Test</div>
+
+                        <div class="lab-item">
+                            <span class="lab-item-name">1 gG</span>
+                            <span class="lab-item-dots"></span>
+                            <div class="lab-item-val-unit">
+                                <span class="lab-item-val"></span>
+                                <span class="lab-item-range"></span>
+                            </div>
+                        </div>
+
+                        <div class="lab-item">
+                            <span class="lab-item-name">1 gM</span>
+                            <span class="lab-item-dots"></span>
+                            <div class="lab-item-val-unit">
+                                <span class="lab-item-val"></span>
+                                <span class="lab-item-range"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- RIGHT COLUMN: Serology -->
+                <div class="lab-col-right">
+
+                    <!-- SEROLOGY -->
+                    <div class="lab-section">
+                        <div class="lab-section-header">Serology</div>
+
+                        <div class="lab-item">
+                            <span class="lab-item-name">Blood Group</span>
+                            <span class="lab-item-dots"></span>
+                            <div class="lab-item-val-unit">
+                                <span class="lab-item-val"></span>
+                                <span class="lab-item-range"></span>
+                            </div>
+                        </div>
+
+                        <div class="lab-item">
+                            <span class="lab-item-name">Rh Factor</span>
+                            <span class="lab-item-dots"></span>
+                            <div class="lab-item-val-unit">
+                                <span class="lab-item-val"></span>
+                                <span class="lab-item-range"></span>
+                            </div>
+                        </div>
+
+                        <div class="lab-item">
+                            <span class="lab-item-name">Hb's Ag by Device</span>
+                            <span class="lab-item-dots"></span>
+                            <div class="lab-item-val-unit">
+                                <span class="lab-item-val"></span>
+                                <span class="lab-item-range"></span>
+                            </div>
+                        </div>
+
+                        <div class="lab-item">
+                            <span class="lab-item-name">HCV by Device</span>
+                            <span class="lab-item-dots"></span>
+                            <div class="lab-item-val-unit">
+                                <span class="lab-item-val"></span>
+                                <span class="lab-item-range"></span>
+                            </div>
+                        </div>
+
+                        <div class="lab-item">
+                            <span class="lab-item-name">HIV by Device</span>
+                            <span class="lab-item-dots"></span>
+                            <div class="lab-item-val-unit">
+                                <span class="lab-item-val"></span>
+                                <span class="lab-item-range"></span>
+                            </div>
+                        </div>
+
+                        <div class="lab-item" style="font-weight: bold; margin-bottom: 2px;">
+                            <span class="lab-item-name">WIDAL</span>
+                            <span></span>
+                            <span></span>
+                        </div>
+
+                        <div class="lab-sub-item">
+                            <span class="lab-sub-item-name">To</span>
+                            <span class="lab-sub-item-dots"></span>
+                            <div class="lab-sub-item-val-unit">
+                                <span class="lab-item-val"></span>
+                                <span class="lab-item-range"></span>
+                            </div>
+                        </div>
+
+                        <div class="lab-sub-item">
+                            <span class="lab-sub-item-name">TH</span>
+                            <span class="lab-sub-item-dots"></span>
+                            <div class="lab-sub-item-val-unit">
+                                <span class="lab-item-val"></span>
+                                <span class="lab-item-range"></span>
+                            </div>
+                        </div>
+
+                        <div class="lab-item" style="font-weight: bold; margin-bottom: 2px;">
+                            <span class="lab-item-name">BRUCELLA</span>
+                            <span></span>
+                            <span></span>
+                        </div>
+
+                        <div class="lab-sub-item">
+                            <span class="lab-sub-item-name">Abortus</span>
+                            <span class="lab-sub-item-dots"></span>
+                            <div class="lab-sub-item-val-unit">
+                                <span class="lab-item-val"></span>
+                                <span class="lab-item-range"></span>
+                            </div>
+                        </div>
+
+                        <div class="lab-sub-item">
+                            <span class="lab-sub-item-name">Melitensis</span>
+                            <span class="lab-sub-item-dots"></span>
+                            <div class="lab-sub-item-val-unit">
+                                <span class="lab-item-val"></span>
+                                <span class="lab-item-range"></span>
+                            </div>
+                        </div>
+
+                        <div class="lab-item" style="font-weight: bold; margin-bottom: 2px;">
+                            <span class="lab-item-name">Toxo Plasmosis</span>
+                            <span></span>
+                            <span></span>
+                        </div>
+
+                        <div class="lab-sub-item">
+                            <span class="lab-sub-item-name">1 gG</span>
+                            <span class="lab-sub-item-dots"></span>
+                            <div class="lab-sub-item-val-unit">
+                                <span class="lab-item-val"></span>
+                                <span class="lab-item-range"></span>
+                            </div>
+                        </div>
+
+                        <div class="lab-sub-item">
+                            <span class="lab-sub-item-name">1 gM</span>
+                            <span class="lab-sub-item-dots"></span>
+                            <div class="lab-sub-item-val-unit">
+                                <span class="lab-item-val"></span>
+                                <span class="lab-item-range"></span>
+                            </div>
+                        </div>
+
+                        <div class="lab-item">
+                            <span class="lab-item-name">RA. Factor</span>
+                            <span class="lab-item-dots"></span>
+                            <div class="lab-item-val-unit">
+                                <span class="lab-item-val"></span>
+                                <span class="lab-item-range"></span>
+                            </div>
+                        </div>
+
+                        <div class="lab-item">
+                            <span class="lab-item-name">ASO Titre</span>
+                            <span class="lab-item-dots"></span>
+                            <div class="lab-item-val-unit">
+                                <span class="lab-item-val"></span>
+                                <span class="lab-item-range"></span>
+                            </div>
+                        </div>
+
+                        <div class="lab-item">
+                            <span class="lab-item-name">VDRL</span>
+                            <span class="lab-item-dots"></span>
+                            <div class="lab-item-val-unit">
+                                <span class="lab-item-val"></span>
+                                <span class="lab-item-range"></span>
+                            </div>
+                        </div>
+
+                        <div class="lab-item" style="font-weight: bold; margin-bottom: 2px;">
+                            <span class="lab-item-name">TYPHIDOT</span>
+                            <span></span>
+                            <span></span>
+                        </div>
+
+                        <div class="lab-sub-item">
+                            <span class="lab-sub-item-name">1 gG</span>
+                            <span class="lab-sub-item-dots"></span>
+                            <div class="lab-sub-item-val-unit">
+                                <span class="lab-item-val"></span>
+                                <span class="lab-item-range"></span>
+                            </div>
+                        </div>
+
+                        <div class="lab-sub-item">
+                            <span class="lab-sub-item-name">1 gM</span>
+                            <span class="lab-sub-item-dots"></span>
+                            <div class="lab-sub-item-val-unit">
+                                <span class="lab-item-val"></span>
+                                <span class="lab-item-range"></span>
+                            </div>
+                        </div>
+
+                        <div class="lab-item" style="font-weight: bold; margin-bottom: 2px;">
+                            <span class="lab-item-name">MALARIA</span>
+                            <span></span>
+                            <span></span>
+                        </div>
+
+                        <div class="lab-sub-item">
+                            <span class="lab-sub-item-name">P.V</span>
+                            <span class="lab-sub-item-dots"></span>
+                            <div class="lab-sub-item-val-unit">
+                                <span class="lab-item-val"></span>
+                                <span class="lab-item-range"></span>
+                            </div>
+                        </div>
+
+                        <div class="lab-sub-item">
+                            <span class="lab-sub-item-name">P.F</span>
+                            <span class="lab-sub-item-dots"></span>
+                            <div class="lab-sub-item-val-unit">
+                                <span class="lab-item-val"></span>
+                                <span class="lab-item-range"></span>
+                            </div>
+                        </div>
+
+                        <div class="lab-item">
+                            <span class="lab-item-name">H. Pylori</span>
+                            <span class="lab-item-dots"></span>
+                            <div class="lab-item-val-unit">
+                                <span class="lab-item-val"></span>
+                                <span class="lab-item-range"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- URINE ANALYSIS -->
+            <div class="lab-urine-section">
+                <div class="lab-urine-header-container">
+                    <div class="lab-urine-header">Urine Analysis</div>
+                </div>
+
+                <div class="lab-urine-cols">
+                    <!-- PHYSICAL -->
+                    <div class="lab-urine-col">
+                        <div class="lab-urine-sub-header">Physical</div>
+                        <div class="lab-urine-item">
+                            <span class="lab-urine-item-name">Colour</span>
+                            <span class="lab-urine-item-dots"></span>
+                            <span class="lab-urine-item-val"></span>
+                        </div>
+                        <div class="lab-urine-item">
+                            <span class="lab-urine-item-name">PH</span>
+                            <span class="lab-urine-item-dots"></span>
+                            <span class="lab-urine-item-val"></span>
+                        </div>
+
+                        <div class="lab-pregnancy-test">
+                            <span>Pregnancy Test:</span>
+                            <span
+                                style="border-bottom: 1px dotted #ccc; flex-grow: 1; margin-left: 5px; min-height: 14px;"></span>
+                        </div>
+                    </div>
+
+                    <!-- CHEMICAL -->
+                    <div class="lab-urine-col">
+                        <div class="lab-urine-sub-header">Chemical</div>
+                        <div class="lab-urine-item">
+                            <span class="lab-urine-item-name">Albumin</span>
+                            <span class="lab-urine-item-dots"></span>
+                            <span class="lab-urine-item-val"></span>
+                        </div>
+                        <div class="lab-urine-item">
+                            <span class="lab-urine-item-name">Sugar</span>
+                            <span class="lab-urine-item-dots"></span>
+                            <span class="lab-urine-item-val"></span>
+                        </div>
+                        <div class="lab-urine-item">
+                            <span class="lab-urine-item-name">Bile Salt</span>
+                            <span class="lab-urine-item-dots"></span>
+                            <span class="lab-urine-item-val"></span>
+                        </div>
+                        <div class="lab-urine-item">
+                            <span class="lab-urine-item-name">Bile Pigments</span>
+                            <span class="lab-urine-item-dots"></span>
+                            <span class="lab-urine-item-val"></span>
+                        </div>
+                    </div>
+
+                    <!-- MICROSCOPY -->
+                    <div class="lab-urine-col">
+                        <div class="lab-urine-sub-header">Microscopy</div>
+                        <div class="lab-urine-item">
+                            <span class="lab-urine-item-name">Pus Cells</span>
+                            <span class="lab-urine-item-dots"></span>
+                            <span class="lab-urine-item-val">/HPE</span>
+                        </div>
+                        <div class="lab-urine-item">
+                            <span class="lab-urine-item-name">Red Cells</span>
+                            <span class="lab-urine-item-dots"></span>
+                            <span class="lab-urine-item-val">/HPE</span>
+                        </div>
+                        <div class="lab-urine-item">
+                            <span class="lab-urine-item-name">Epithelial Cells</span>
+                            <span class="lab-urine-item-dots"></span>
+                            <span class="lab-urine-item-val">/HPE</span>
+                        </div>
+                        <div class="lab-urine-item">
+                            <span class="lab-urine-item-name">Ca-Oxalate</span>
+                            <span class="lab-urine-item-dots"></span>
+                            <span class="lab-urine-item-val">/HPE</span>
+                        </div>
+                        <div class="lab-urine-item">
+                            <span class="lab-urine-item-name">Other Found</span>
+                            <span class="lab-urine-item-dots"></span>
+                            <span class="lab-urine-item-val"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- LAB FOOTER -->
+        <div class="lab-footer">
+            <div class="lab-footer-left">
+                Note: Not valid for court use.<br>
+                Human Error is possible.
+            </div>
+            <div class="lab-footer-right">
+                Signature Lab. Technician
+            </div>
+        </div>
+
+        <!-- FBR SECTION -->
+        <div class="fbr-section-container" id="fbrSectionContainer" style="display: none; border-top: 2px solid #000; padding-top: 10px; font-family: 'Arial', sans-serif;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div style="font-size: 13px; line-height: 1.5; color: #000;">
+                    <div style="font-weight: bold; color: #0b1831; font-size: 15px; margin-bottom: 4px; letter-spacing: 0.5px;">FBR FISCALIZED INVOICE</div>
+                    <div>POS ID: <strong id="printFbrPosId"><%= typeof fbrPosId !== 'undefined' ? fbrPosId : '194518' %></strong></div>
+                    <div>FBR Invoice Number: <strong id="printFbrInvoiceNumber" style="font-family: monospace; font-size: 14px;"></strong></div>
+                </div>
+                <div style="text-align: right;">
+                    <img id="printFbrQrCode" src="" style="width: 70px; height: 70px; display: none;" alt="FBR QR Code" />
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <script>
+
+        const subOptionsData = {
+            NORMAL_DELIVERY: [
+                { label: "Appendectomy" },
+                { label: "Cholecystectomy" },
+                { label: "Hemorrhoidectomy" },
+                { label: "IUCD Placement" },
+                { label: "IUCD Removal" },
+                { label: "Incision & Drainage" }
+            ],
+            DNC: [
+                { label: "NVD With Episiotomy" },
+                { label: "Twins Vaginal Delivery" },
+                { label: "Vaccum Assisted Delivery" },
+                { label: "Spontaneous Expulsion F/B -  E&C" },
+                { label: "Incomplete Miscarriage F/B - E&C" },
+                { label: "Breech Delivery" },
+                { label: "D&C" },
+                { label: "Elective - C-Section" },
+                { label: "Emergency - C-Section" }
+            ],
+            C_SECTION: [
+                { label: "Laprotomy" },
+                { label: "TAH & BSO" },
+                { label: "TAH" },
+                { label: "V.H" },
+                { label: "VH & AP Repair" },
+                { label: "AP Repair" },
+                { label: "Cervical Cerclage" },
+                { label: "Bartholin Cyst" },
+                { label: "Cystectomy" }
+            ],
+            ENT_OPERATION: [
+                { label: "Nasal polypectomy" },
+                { label: "Aural polypectomy" },
+                { label: "Adeno tonsilectomy" },
+                { label: "Cautry nasal" },
+                { label: "Myringoplasty local" },
+                { label: "D/L" },
+                { label: "Rigid endoscopy" },
+                { label: "Myringotomy" },
+                { label: "Myringotomy with groments" },
+                { label: "OTO Endoscopy" },
+                { label: "tonsilectomy" },
+                { label: "Myringoplasty GA" },
+                { label: "septoplasty" }
+            ],
+            ENT: [
+                { label: "Nasal polypectomy" },
+                { label: "Aural polypectomy" },
+                { label: "Adeno tonsilectomy" },
+                { label: "Cautry nasal" },
+                { label: "Myringoplasty local" },
+                { label: "D/L" },
+                { label: "Rigid endoscopy" },
+                { label: "Myringotomy" },
+                { label: "Myringotomy with groments" },
+                { label: "OTO Endoscopy" },
+                { label: "tonsilectomy" },
+                { label: "Myringoplasty GA" },
+                { label: "septoplasty" }
+            ]
+        };
+
+        const form =
+            document.getElementById(
+                "createSlipForm"
+            );
+
+        const slipTypeSelect = document.querySelector('select[name="slipType"]');
+        const amountInput = document.querySelector('input[name="amount"]');
+        const subOptionsContainer = document.getElementById("subOptionsContainer");
+        const subOptionsLabel = document.getElementById("subOptionsLabel");
+        const subOptionsSelect = document.getElementById("subOptionsSelect");
+
+        function updateSubOptions() {
+            const selectedType = slipTypeSelect.value;
+            if (subOptionsData[selectedType]) {
+                let categoryLabel = "Sub-Options";
+                if (selectedType === "NORMAL_DELIVERY") categoryLabel = "Miscellaneous Options";
+                else if (selectedType === "DNC") categoryLabel = "OBS Case Options";
+                else if (selectedType === "C_SECTION") categoryLabel = "Gynaecologist Case Options";
+                else if (selectedType === "ENT_OPERATION" || selectedType === "ENT") categoryLabel = "ENT Options";
+
+                subOptionsLabel.innerText = categoryLabel;
+                
+                subOptionsSelect.innerHTML = '<option value="">-- Select Option --</option>';
+                subOptionsData[selectedType].forEach(opt => {
+                    const optionEl = document.createElement("option");
+                    optionEl.value = opt.label;
+                    optionEl.innerText = opt.display || opt.label;
+                    if (opt.price !== undefined) {
+                        optionEl.setAttribute("data-price", opt.price);
+                    }
+                    subOptionsSelect.appendChild(optionEl);
+                });
+                
+                subOptionsContainer.style.display = "block";
+                subOptionsSelect.required = true;
+            } else {
+                subOptionsContainer.style.display = "none";
+                subOptionsSelect.innerHTML = "";
+                subOptionsSelect.required = false;
+            }
+        }
+
+        slipTypeSelect.addEventListener("change", () => {
+            updateSubOptions();
+            amountInput.value = "";
+        });
+
+        subOptionsSelect.addEventListener("change", () => {
+            const selectedOpt = subOptionsSelect.options[subOptionsSelect.selectedIndex];
+            if (selectedOpt && selectedOpt.value) {
+                const price = selectedOpt.getAttribute("data-price");
+                amountInput.value = price || "";
+            } else {
+                amountInput.value = "";
+            }
+        });
+
+        let savedSlip = null;
+
+
+        // CREATE SLIP
+        form.addEventListener(
+            "submit",
+            async (e) => {
+
+                e.preventDefault();
+
+                const formData =
+                    new FormData(form);
+
+                const data = {
+
+                    mrNumber:
+                        formData.get(
+                            "mrNumber"
+                        ),
+
+                    slipType:
+                        formData.get(
+                            "slipType"
+                        ),
+
+                    doctorName:
+                        formData.get(
+                            "doctorName"
+                        ),
+
+                    amount:
+                        Number(
+                            formData.get(
+                                "amount"
+                            )
+                        ),
+
+                    paymentStatus:
+                        formData.get(
+                            "paymentStatus"
+                        ),
+
+                    selectedOption:
+                        formData.get(
+                            "selectedOption"
+                        ) || "",
+
+                };
+
+                try {
+
+                    const response =
+                        await fetch(
+                            "/api/slip/createSlip",
+                            {
+
+                                method: "POST",
+
+                                headers: {
+
+                                    "Content-Type":
+                                        "application/json",
+
+                                    Authorization:
+                                        `Bearer ${localStorage.getItem("token")}`,
+
+                                },
+
+                                body:
+                                    JSON.stringify(
+                                        data
+                                    ),
+
+                            }
+                        );
+
+                    const result =
+                        await response.json();
+
+                    if (
+                        result.success
+                    ) {
+
+                        savedSlip =
+                            result.data;
+
+                        alert(
+                            "Slip Created Successfully"
+                        );
+
+                        document.getElementById(
+                            "printSlip"
+                        ).style.display =
+                            "block";
+
+                        // FBR Details
+                        const fbrContainer = document.getElementById("fbrSectionContainer");
+                        const fbrInvNumEl = document.getElementById("printFbrInvoiceNumber");
+                        const fbrQrCodeEl = document.getElementById("printFbrQrCode");
+
+                        if (savedSlip.fbrInvoiceNumber) {
+                            document.getElementById("printSlip").classList.add("has-fbr");
+                            fbrContainer.style.display = "block";
+                            fbrInvNumEl.innerText = savedSlip.fbrInvoiceNumber;
+                            // Generate QR code pointing to FBR verification page
+                            const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://ims.fbr.gov.pk/fbr-verification/verification?in=${savedSlip.fbrInvoiceNumber}`;
+                            fbrQrCodeEl.src = qrUrl;
+                            fbrQrCodeEl.style.display = "block";
+                        } else {
+                            document.getElementById("printSlip").classList.remove("has-fbr");
+                            fbrContainer.style.display = "none";
+                            fbrInvNumEl.innerText = "";
+                            fbrQrCodeEl.src = "";
+                            fbrQrCodeEl.style.display = "none";
+                        }
+
+                        // PATIENT NAME
+                        document.getElementById(
+                            "printPatientName"
+                        ).innerText =
+                            savedSlip.patientName ||
+                            savedSlip.patient?.patientName ||
+                            "";
+
+                        // ADDRESS FROM BACKEND
+                        document.getElementById(
+                            "printAddress"
+                        ).innerText =
+                            savedSlip.patient?.address ||
+                            savedSlip.address ||
+                            "N/A";
+
+                        // SLIP TYPE
+                        const slipTypeVal = savedSlip.slipType || "";
+                        let displaySlipType = slipTypeVal;
+                        if (slipTypeVal === "OPD_EVENING") {
+                            displaySlipType = "OPD EVENING";
+                        } else if (slipTypeVal === "OPD_NIGHT") {
+                            displaySlipType = "OPD NIGHT";
+                        } else if (slipTypeVal === "OPD_DAY") {
+                            displaySlipType = "OPD DAY";
+                        } else if (slipTypeVal === "NORMAL_DELIVERY") {
+                            displaySlipType = "Miscellaneous";
+                        } else if (slipTypeVal === "ENT_OPERATION") {
+                            displaySlipType = "ENT OPERATION";
+                        } else if (slipTypeVal === "C_SECTION") {
+                            displaySlipType = "Gynaecologist - Case";
+                        } else if (slipTypeVal === "ULTRASOUND") {
+                            displaySlipType = "ULTRASOUND";
+                        } else if (slipTypeVal === "ENT") {
+                            displaySlipType = "ENT";
+                        } else if (slipTypeVal === "DNC") {
+                            displaySlipType = "OBS - Case";
+                        }
+
+                        document.getElementById(
+                            "printSlipType"
+                        ).innerText = displaySlipType;
+
+                        const eveningNightTypeEl = document.getElementById("printSlipTypeEveningNight");
+                        if (eveningNightTypeEl) {
+                            eveningNightTypeEl.innerText = displaySlipType;
+                        }
+
+                        const ultrasoundTypeEl = document.getElementById("printSlipTypeUltrasound");
+                        if (ultrasoundTypeEl) {
+                            ultrasoundTypeEl.innerText = displaySlipType;
+                        }
+
+                        const entTypeEl = document.getElementById("printSlipTypeEnt");
+                        if (entTypeEl) {
+                            entTypeEl.innerText = displaySlipType;
+                        }
+
+                        // Toggle dynamic styling classes
+                        const printSlipEl = document.getElementById("printSlip");
+                        printSlipEl.classList.remove("evening-night-mode", "ultrasound-mode", "ent-mode", "ent-operation-mode", "c-section-mode", "normal-delivery-mode", "lab-mode", "dnc-mode", "hijama-mode");
+
+                        if (slipTypeVal === "OPD_EVENING" || slipTypeVal === "OPD_NIGHT") {
+                            printSlipEl.classList.add("evening-night-mode");
+                        } else if (slipTypeVal === "ULTRASOUND") {
+                            printSlipEl.classList.add("ultrasound-mode");
+                        } else if (slipTypeVal === "ENT") {
+                            printSlipEl.classList.add("ent-mode");
+                        } else if (slipTypeVal === "ENT_OPERATION") {
+                            printSlipEl.classList.add("ent-operation-mode");
+                        } else if (slipTypeVal === "C_SECTION") {
+                            printSlipEl.classList.add("c-section-mode");
+                        } else if (slipTypeVal === "NORMAL_DELIVERY") {
+                            printSlipEl.classList.add("normal-delivery-mode");
+                        } else if (slipTypeVal === "LAB") {
+                            printSlipEl.classList.add("lab-mode");
+                        } else if (slipTypeVal === "DNC") {
+                            printSlipEl.classList.add("dnc-mode");
+                        } else if (slipTypeVal === "HIJAMA") {
+                            printSlipEl.classList.add("hijama-mode");
+                        }
+
+                        // Populate ENT_OPERATION fields if applicable
+                        if (slipTypeVal === "ENT_OPERATION") {
+                            const patName = savedSlip.patientName || savedSlip.patient?.patientName || "";
+                            const guardName = savedSlip.patient?.guardianName || "N/A";
+                            const slipDate = new Date().toLocaleDateString();
+                            const docName = savedSlip.doctorName || data.doctorName;
+                            const addr = savedSlip.patient?.address || savedSlip.address || "N/A";
+                            const phoneVal = savedSlip.patient?.phone || "N/A";
+
+                            document.getElementById("printDateEntOp").innerText = slipDate;
+                            document.getElementById("printDoctorEntOp").innerText = docName;
+                            document.getElementById("printAddressEntOp").innerText = addr;
+                            document.getElementById("printPhoneEntOp").innerText = phoneVal;
+                            document.getElementById("printPatientNameEntOp").innerText = patName;
+                            document.getElementById("printGuardianNameEntOp").innerText = guardName;
+
+                            const selectedOpt = savedSlip.selectedOption || "";
+                            const labelEl = document.getElementById("printEntOperationTitleLabel");
+                            if (labelEl) {
+                                labelEl.innerText = selectedOpt ? `ENT Operation - ${selectedOpt}` : "ENT Operation";
+                            }
+                        }
+
+                        // Populate C_SECTION fields if applicable
+                        if (slipTypeVal === "C_SECTION") {
+                            const patName = savedSlip.patientName || savedSlip.patient?.patientName || "";
+                            const guardName = savedSlip.patient?.guardianName || "N/A";
+                            const slipDate = new Date().toLocaleDateString();
+                            const docName = savedSlip.doctorName || data.doctorName;
+                            const addr = savedSlip.patient?.address || savedSlip.address || "N/A";
+                            const phoneVal = savedSlip.patient?.phone || "N/A";
+
+                            document.getElementById("printDateCsec").innerText = slipDate;
+                            document.getElementById("printDoctorCsec").innerText = docName;
+                            document.getElementById("printAddressCsec").innerText = addr;
+                            document.getElementById("printPhone1Csec").innerText = phoneVal;
+                            document.getElementById("printPatientNameCsec").innerText = patName;
+                            document.getElementById("printGuardianNameCsec").innerText = guardName;
+
+                            const selectedOpt = savedSlip.selectedOption || "";
+                            const labelEl = document.getElementById("printCSectionTitleLabel");
+                            if (labelEl) {
+                                labelEl.innerText = selectedOpt ? `Gynaecologist - Case - ${selectedOpt}` : "Gynaecologist - Case";
+                            }
+                        }
+
+                        // Populate NORMAL_DELIVERY fields if applicable
+                        if (slipTypeVal === "NORMAL_DELIVERY") {
+                            const patName = savedSlip.patientName || savedSlip.patient?.patientName || "";
+                            const guardName = savedSlip.patient?.guardianName || "N/A";
+                            const guardRelation = savedSlip.patient?.guardianRelation || "N/A";
+                            const slipDate = new Date().toLocaleDateString();
+                            const addr = savedSlip.patient?.address || savedSlip.address || "N/A";
+                            const phoneVal = savedSlip.patient?.phone || "N/A";
+
+                            document.getElementById("printPatientNameNorm").innerText = patName;
+                            document.getElementById("printGuardianNameNorm").innerText = guardName;
+                            document.getElementById("printAddressNorm").innerText = addr;
+                            document.getElementById("printDateNorm").innerText = slipDate;
+                            document.getElementById("printGuardianNameFieldNorm").innerText = guardName;
+                            document.getElementById("printGuardianRelationNorm").innerText = guardRelation;
+                            document.getElementById("printPhone1Norm").innerText = phoneVal;
+
+                            const selectedOpt = savedSlip.selectedOption || "";
+                            const labelEl = document.getElementById("printNormalDeliveryTitleLabel");
+                            if (labelEl) {
+                                labelEl.innerText = selectedOpt ? `Miscellaneous - ${selectedOpt}` : "Miscellaneous";
+                            }
+                        }
+
+                        // Populate DNC fields if applicable
+                        if (slipTypeVal === "DNC") {
+                            const patName = savedSlip.patientName || savedSlip.patient?.patientName || "";
+                            const guardName = savedSlip.patient?.guardianName || "N/A";
+                            const slipDate = new Date().toLocaleDateString();
+
+                            document.getElementById("printDateDnc").innerText = slipDate;
+                            document.getElementById("printPatientNameDnc").innerText = patName;
+                            document.getElementById("printGuardianNameDnc").innerText = guardName;
+                            document.getElementById("printPatientNameSigDnc").innerText = patName;
+                            document.getElementById("printGuardianNameSigDnc").innerText = guardName;
+                            document.getElementById("printPatientNameUrduDnc").innerText = patName;
+                            document.getElementById("printGuardianNameUrduDnc").innerText = guardName;
+                            document.getElementById("printPatientUrduSigDnc").innerText = patName;
+                            document.getElementById("printGuardianUrduSigDnc").innerText = guardName;
+                            document.getElementById("printDateUrduDnc").innerText = slipDate;
+
+                            const selectedOpt = savedSlip.selectedOption || "";
+                            const labelEl = document.getElementById("printDncTitleLabel");
+                            if (labelEl) {
+                                labelEl.innerText = selectedOpt ? `OBS - Case - ${selectedOpt}` : "OBS - Case";
+                            }
+                        }
+
+                        // Populate HIJAMA fields if applicable
+                        if (slipTypeVal === "HIJAMA") {
+                            const patName = savedSlip.patientName || savedSlip.patient?.patientName || "";
+                            const mrNo = savedSlip.mrNumber || savedSlip.patient?.mrNumber || data.mrNumber;
+                            const addr = savedSlip.patient?.address || savedSlip.address || "N/A";
+                            const age = savedSlip.patient?.age || "";
+                            const gender = savedSlip.patient?.gender || "";
+                            const slipDate = new Date().toLocaleDateString();
+
+                            document.getElementById("printPatientNameHij").innerText = patName;
+                            document.getElementById("printMrHij").innerText = mrNo;
+                            document.getElementById("printAddressHij").innerText = addr;
+                            document.getElementById("printAgeHij").innerText = age;
+                            document.getElementById("printGenderHij").innerText = gender;
+
+                            // Set Date 1
+                            document.getElementById("printDate1Hij").innerText = slipDate;
+                        }
+
+                        // Populate LAB patient fields if applicable
+                        if (slipTypeVal === "LAB") {
+                            const patName = savedSlip.patientName || savedSlip.patient?.patientName || "";
+                            const mrNo = savedSlip.mrNumber || savedSlip.patient?.mrNumber || data.mrNumber;
+                            const slipDate = new Date().toLocaleDateString();
+                            const docName = savedSlip.doctorName || data.doctorName;
+                            const addr = savedSlip.patient?.address || savedSlip.address || "N/A";
+                            const payStatus = savedSlip.paymentStatus || data.paymentStatus;
+                            const amt = savedSlip.amount || data.amount;
+
+                            document.getElementById("printPatientNameLab").innerText = patName;
+                            document.getElementById("printMrLab").innerText = mrNo;
+                            document.getElementById("printDateLab").innerText = slipDate;
+                            document.getElementById("printDoctorLab").innerText = docName;
+                            document.getElementById("printAddressLab").innerText = addr;
+                            document.getElementById("printAmountPaymentLab").innerText = `Rs. ${amt} / ${payStatus}`;
+                        }
+
+                        // DATE
+                        document.getElementById(
+                            "printDate"
+                        ).innerText =
+                            new Date().toLocaleDateString();
+
+                        // MR NUMBER
+                        document.getElementById(
+                            "printMr"
+                        ).innerText =
+                            savedSlip.mrNumber ||
+                            savedSlip.patient?.mrNumber ||
+                            data.mrNumber;
+
+                        // DOCTOR
+                        document.getElementById(
+                            "printDoctor"
+                        ).innerText =
+                            savedSlip.doctorName ||
+                            data.doctorName;
+
+                        // PAYMENT STATUS FROM BACKEND
+                        document.getElementById(
+                            "printPayment"
+                        ).innerText =
+                            savedSlip.paymentStatus ||
+                            data.paymentStatus;
+
+                        // AMOUNT
+                        document.getElementById(
+                            "printAmount"
+                        ).innerText =
+                            savedSlip.amount ||
+                            data.amount;
+
+                    }
+
+                    else {
+
+                        alert(
+                            result.message
+                        );
+
+                    }
+
+                }
+
+                catch (error) {
+
+                    console.log(error);
+
+                    alert(
+                        "Something went wrong"
+                    );
+
+                }
+
+            });
+
+
+        // PRINT
+        function printSlip() {
+
+            if (!savedSlip) {
+
+                alert(
+                    "Please create slip first"
+                );
+
+                return;
+
+            }
+
+            window.print();
+
+        }
+
+        // FBR Diagnostic Status Check
+        async function checkFbrStatus() {
+            const fbrDot = document.getElementById("fbrStatusDot");
+            const fbrText = document.getElementById("fbrStatusText");
+            const fbrTrouble = document.getElementById("fbrTroubleshoot");
+            const btnCheck = document.getElementById("btnCheckFbr");
+            const btnText = document.getElementById("fbrBtnText");
+
+            if (!fbrDot || !fbrText || !fbrTrouble || !btnCheck || !btnText) return;
+
+            // Show checking status
+            fbrDot.className = "fbr-status-dot checking";
+            fbrText.innerText = "Checking Connection...";
+            fbrText.style.color = "#f59e0b";
+            btnCheck.disabled = true;
+            btnText.innerText = "Checking...";
+
+            try {
+                const response = await fetch("/api/slip/check-fbr", {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`
+                    }
+                });
+                const result = await response.json();
+
+                if (result.success && result.status === "online") {
+                    fbrDot.className = "fbr-status-dot online";
+                    fbrText.innerText = "Online (Ready)";
+                    fbrText.style.color = "#10b981";
+                    fbrTrouble.style.display = "none";
+                } else {
+                    fbrDot.className = "fbr-status-dot offline";
+                    fbrText.innerText = "Offline (Not Running)";
+                    fbrText.style.color = "#ef4444";
+                    fbrTrouble.style.display = "block";
+                }
+            } catch (err) {
+                fbrDot.className = "fbr-status-dot offline";
+                fbrText.innerText = "Offline (Error)";
+                fbrText.style.color = "#ef4444";
+                fbrTrouble.style.display = "block";
+            } finally {
+                btnCheck.disabled = false;
+                btnText.innerText = "Check Status";
+            }
+        }
+
+        // Run connection check on page load and attach to button
+        setTimeout(checkFbrStatus, 500);
+        document.getElementById("btnCheckFbr").addEventListener("click", checkFbrStatus);
+
+    </script>
+
+</body>
+
+</html>
